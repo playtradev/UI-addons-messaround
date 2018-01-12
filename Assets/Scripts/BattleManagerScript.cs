@@ -17,6 +17,8 @@ public class BattleManagerScript : MonoBehaviour {
     private int defenceCount1;
     private int damageCount2;
     private int defenceCount2;
+    private bool magicSupport1;
+    private bool magicSupport2;
 
     //seed position
     [Header("Seed Array List")]
@@ -215,7 +217,7 @@ public class BattleManagerScript : MonoBehaviour {
         //Magic: Deals 20% of damage recieved back to opponent.
         else if (t == 2)
         {
-            Debug.Log("<color=red> SORRY, magic support not working yet </color>");
+            magicSupport1 = true;
         }
     }
 
@@ -250,7 +252,7 @@ public class BattleManagerScript : MonoBehaviour {
         //Magic: Deals 20% of damage recieved back to opponent.
         else if (t == 2)
         {
-            Debug.Log("<color=red> SORRY, magic support not working yet </color>");
+            magicSupport2 = true;
         }
     }
 
@@ -260,11 +262,19 @@ public class BattleManagerScript : MonoBehaviour {
         player1Health = player1Health - (damageCount2 - defenceCount1);
         player2Health = player2Health - (damageCount1 - defenceCount2);
 
+        if (magicSupport1 == true) { player2Health = player2Health - (Mathf.CeilToInt((float)damageCount2 / 5)); }
+        if (magicSupport2 == true) { player1Health = player1Health - (Mathf.CeilToInt((float)damageCount1 / 5)); }
+
+        Debug.Log("<color=red>magic shell red will DEAL </color>" + Mathf.CeilToInt((float)damageCount2 / 5));
+        Debug.Log("<color=green>magic shell green will DEAL </color>" + Mathf.CeilToInt((float)damageCount1 / 5));
+
         //Reset Damage Counters
         damageCount1 = 0;
         defenceCount1 = 0;
         damageCount2 = 0;
         defenceCount2 = 0;
+        magicSupport1 = false;
+        magicSupport2 = false;
 
         //Update HP UI
         Player1HealthDisplay.GetComponent<Text>().text = "Player 1 HP: " + player1Health.ToString();

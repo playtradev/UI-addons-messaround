@@ -43,19 +43,22 @@ public class SeedScript : MonoBehaviour {
 
         attackMode = seedPosition[t];
 
-        if (seedPosition[t] == "Support")
+        if (!thisSeed.name.StartsWith("Magic_"))
         {
-            support1.gameObject.SetActive(true);
-            support2.gameObject.SetActive(true);
-            supportText.gameObject.SetActive(true);
+            if (seedPosition[t] == "Support")
+            {
+                support1.gameObject.SetActive(true);
+                support2.gameObject.SetActive(true);
+                supportText.gameObject.SetActive(true);
 
-            supportText.text = support1.GetComponentInChildren<Text>().text;
-        }
-        else
-        {
-            support1.gameObject.SetActive(false);
-            support2.gameObject.SetActive(false);
-            supportText.gameObject.SetActive(false);
+                supportText.text = support1.GetComponentInChildren<Text>().text;
+            }
+            else
+            {
+                support1.gameObject.SetActive(false);
+                support2.gameObject.SetActive(false);
+                supportText.gameObject.SetActive(false);
+            }
         }
 
     }

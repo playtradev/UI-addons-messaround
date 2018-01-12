@@ -78,7 +78,7 @@ public class DialogueHandlerScript : MonoBehaviour {
             }
             if ((currentLine == 12) && (userName == ""))
             {
-                generateRandomUsername();
+                GenerateRandomUsername();
             }
             if ((currentLine == 12) && (userName != ""))
             {
@@ -115,12 +115,13 @@ public class DialogueHandlerScript : MonoBehaviour {
         randomUserName = randomUserNameList[Random.Range(0, randomUserNameList.Length - 1)];
     }
 
-    public void generateRandomUsername()
+    public void GenerateRandomUsername()
     {
         RandomUsername();
         textBox.text = mineDialogue[19].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
         currentFaceImage.sprite = spriteList[3];
-        //Hide or show correct buttons
+
+        //Hide and show correct buttons
         inputName.SetActive(false);
         nextButton.gameObject.SetActive(false);
         newRandomButton.gameObject.SetActive(true);
@@ -133,7 +134,7 @@ public class DialogueHandlerScript : MonoBehaviour {
         userName = randomUserName;
         CheckLine();
 
-        //Hide or show correct buttons
+        //Hide and show correct buttons
         nextButton.gameObject.SetActive(true);
         newRandomButton.gameObject.SetActive(false);
         acceptRandomButton.gameObject.SetActive(false);
@@ -147,7 +148,7 @@ public class DialogueHandlerScript : MonoBehaviour {
 
         CheckLine();
 
-        //Hide or show correct buttons
+        //Hide and show correct buttons
         inputName.SetActive(true);
         nextButton.gameObject.SetActive(true);
         newRandomButton.gameObject.SetActive(false);
