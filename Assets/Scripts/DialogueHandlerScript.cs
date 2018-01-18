@@ -15,6 +15,7 @@ public class DialogueHandlerScript : MonoBehaviour {
 
     [Header("GPS")]
     public Button gpsButton;
+    public Button recentreMapButton;
 
     [Header("Username Input")]
     public GameObject inputName; //to show + hide

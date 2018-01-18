@@ -10,7 +10,7 @@
 
 		ILocationProvider _locationProvider;
 
-		void Start()
+		public void Start()
 		{
 			_locationProvider = LocationProviderFactory.Instance.DefaultLocationProvider;
 			_locationProvider.OnLocationUpdated += LocationProvider_OnLocationUpdated;;
