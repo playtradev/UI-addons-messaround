@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DialogueHandlerScript : MonoBehaviour {
 
     [Header("Dialogue")]
+    public GameObject ScrollSnapRef;
     public Button nextButton;
     public TextAsset textFile;
     public Text textBox;
@@ -40,6 +41,8 @@ public class DialogueHandlerScript : MonoBehaviour {
     {
         currentLine = 0;
         currentFace = 0;
+
+        ScrollSnapRef.GetComponent<ScrollRect>().vertical = false;
 
         if (textFile != null)
         {
@@ -96,6 +99,7 @@ public class DialogueHandlerScript : MonoBehaviour {
             if (currentLine == 16)
             {
                 nextButton.gameObject.SetActive(false);
+                ScrollSnapRef.GetComponent<ScrollRect>().vertical = true;
             }
     }
 
@@ -118,16 +122,28 @@ public class DialogueHandlerScript : MonoBehaviour {
 
     public void GenerateRandomUsername()
     {
-        RandomUsername();
-        textBox.text = mineDialogue[19].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
-        currentFaceImage.sprite = spriteList[3];
+        string lastrandomName = randomUserName;
 
-        //Hide and show correct buttons
-        inputName.SetActive(false);
-        nextButton.gameObject.SetActive(false);
-        newRandomButton.gameObject.SetActive(true);
-        acceptRandomButton.gameObject.SetActive(true);
-        inputOwnNameButton.gameObject.SetActive(true);
+        RandomUsername();
+        if (lastrandomName == randomUserName)
+        {
+            //Reroll because name is the same
+            GenerateRandomUsername();
+        }
+        else
+        {
+            textBox.text = mineDialogue[19].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
+            currentFaceImage.sprite = spriteList[3];
+
+            //Hide and show correct buttons
+            inputName.SetActive(false);
+            nextButton.gameObject.SetActive(false);
+            newRandomButton.gameObject.SetActive(true);
+            acceptRandomButton.gameObject.SetActive(true);
+            inputOwnNameButton.gameObject.SetActive(true);
+        }
+
+
     }
 
     public void AcceptRandomName()

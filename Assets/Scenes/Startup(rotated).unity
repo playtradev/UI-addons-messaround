@@ -1409,6 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ecde6dc19c68b4096829d5468d5601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScrollSnapRef: {fileID: 440280633}
   nextButton: {fileID: 794548327}
   textFile: {fileID: 4900000, guid: 5d035eeb4d2247e4caaebc610486c0fe, type: 3}
   textBox: {fileID: 1595768510}
@@ -1604,6 +1605,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 1167912649}
+--- !u!114 &992947169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 992947166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf32ea2cc0514b569329f6b6b68f9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _map: {fileID: 1167912649}
+  _locationStrings:
+  - 33.4707, -82.5046
+  - 1.356558, 103.838191
+  - 29.59104, 106.22684
+  _spawnScale: 1
+  _markerPrefab: {fileID: 1780166644722094, guid: d4b0f36dcc8df7747bb0aa745f493574,
+    type: 2}
 --- !u!114 &992947171
 MonoBehaviour:
   m_ObjectHideFlags: 0
