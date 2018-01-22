@@ -1624,6 +1624,7 @@ MonoBehaviour:
   _spawnScale: 1
   _markerPrefab: {fileID: 1780166644722094, guid: d4b0f36dcc8df7747bb0aa745f493574,
     type: 2}
+  AbstractLocationProviderRef: {fileID: 646832583}
 --- !u!114 &992947171
 MonoBehaviour:
   m_ObjectHideFlags: 0

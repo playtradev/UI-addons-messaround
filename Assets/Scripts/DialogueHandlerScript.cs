@@ -105,7 +105,6 @@ public class DialogueHandlerScript : MonoBehaviour {
             }
     }
 
-
     //Gets Username from Box
     public void GetUsername()
     {
