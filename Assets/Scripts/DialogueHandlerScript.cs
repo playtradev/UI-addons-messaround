@@ -35,10 +35,12 @@ public class DialogueHandlerScript : MonoBehaviour {
     public Sprite[] spriteList;
     public int currentFace;
 
+    //private string[] locationStringsX = new string[3];
 
     // Use this for initialization
     void Start()
     {
+
         currentLine = 0;
         currentFace = 0;
 

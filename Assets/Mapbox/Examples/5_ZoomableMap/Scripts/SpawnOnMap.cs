@@ -27,8 +27,11 @@
 
 		void Start()
 		{
-			_locations = new Vector2d[_locationStrings.Length];
-			_spawnedObjects = new List<GameObject>();
+            RandomLocations();
+
+            _locations = new Vector2d[_locationStrings.Length];
+
+            _spawnedObjects = new List<GameObject>();
 			for (int i = 0; i < _locationStrings.Length; i++)
 			{
 				var locationString = _locationStrings[i];
@@ -50,5 +53,18 @@
 				spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location);
 			}
 		}
+
+        private void RandomLocations()
+        {
+
+            int RandomLocationCount = 3;
+
+            for (int i = 0; i < RandomLocationCount; i++)
+            {
+                _locationStrings[i] = new Vector2(Random.Range(1.34074873697503f, 1.34074873697503f), Random.Range(103.812385905052f, 103.812385905052f)).ToString("F6").Replace("(", "").Replace(")", "");
+
+                Debug.Log("<color=blue>Made a new Random Location: </color>" + _locationStrings[i]);
+            }
+        }
 	}
 }
