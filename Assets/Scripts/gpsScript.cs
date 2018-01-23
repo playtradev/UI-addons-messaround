@@ -32,8 +32,9 @@
             
             
             //TODO make conditional for editor / phone UNTIL THEN, just pick n choose
-            //Mapbox.Utils.Vector2d currentRealLocation = editorLocationProvider.CurrentLocation.LatitudeLongitude;
-            Mapbox.Utils.Vector2d currentRealLocation = deviceLocationProvider.CurrentLocation.LatitudeLongitude;
+
+            Mapbox.Utils.Vector2d currentRealLocation = editorLocationProvider.CurrentLocation.LatitudeLongitude;
+            //Mapbox.Utils.Vector2d currentRealLocation = deviceLocationProvider.CurrentLocation.LatitudeLongitude;
 
             Mapbox.Utils.Vector2d cameraLocation = mapObjectReference.GetComponent<QuadTreeBasicMap>().CenterLatitudeLongitude;
 

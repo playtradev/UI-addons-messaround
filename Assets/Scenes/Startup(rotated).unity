@@ -728,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1618,13 +1618,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 1167912649}
   _locationStrings:
-  - 1.3151, 103.8162
-  - 1.304278, 103.874611
-  - 1.399916, 103.903143
+  - 
+  - 
+  - 
   _spawnScale: 1
   _markerPrefab: {fileID: 1780166644722094, guid: d4b0f36dcc8df7747bb0aa745f493574,
     type: 2}
-  AbstractLocationProviderRef: {fileID: 646832583}
+  AbstractLocationProviderRef: {fileID: 265613214}
+  CanvasRef: {fileID: 1566922025}
+  RandomLocationCount: 8
 --- !u!114 &992947171
 MonoBehaviour:
   m_ObjectHideFlags: 0
