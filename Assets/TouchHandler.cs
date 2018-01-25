@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TouchHandler : MonoBehaviour {
 
+    public GameObject selectedEvent;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -14,33 +16,30 @@ public class TouchHandler : MonoBehaviour {
     {
         //for (int i = 0; i < Input.touchCount; ++i)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
-                // Construct a ray from the current touch coordinates
-                //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                //Vector2 vectorRay = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                //RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.down);
-
-                RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0, -100));
-
-                Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector2(0, -100), Color.yellow, 20f);
-
-                //Debug.DrawRay(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(0, -100, 1), Color.yellow, 10f);
-
-                Debug.Log("<color=green>Raycast is shooting...</color>" + rayHit.collider);
-
-                // Do something if hit
-                if (rayHit.collider != null)
+                //Deselect Old Event
+                if (selectedEvent != null)
                 {
-                    Debug.Log("<color=teal>Raycast hit! </color>" + rayHit.collider);
+                    selectedEvent.GetComponent<BattleSelected>().IsNotSelected();
+                    selectedEvent = null;
                 }
 
-                //&& hit.transform.tag == "Dynamic")
+                RaycastHit hit;
+                Debug.DrawLine(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(0, -100, 0), Color.magenta, 15f);
+
+                if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(0, -100, 0), out hit) && hit.transform.tag == "MapEvent")
+                {                
+                    Debug.Log("<color=teal>Raycast hit! </color>" + hit.collider.gameObject.GetInstanceID());
+
+                    selectedEvent = hit.collider.gameObject;
+
+                    selectedEvent.GetComponent<BattleSelected>().IsSelected();
+                }
 
             }
 
         }
     }
+
 }

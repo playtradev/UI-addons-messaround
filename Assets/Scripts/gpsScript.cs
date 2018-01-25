@@ -42,7 +42,7 @@
             Vector3 defaultScale = new Vector3 (1, 1, 1);
 
             float currentZoom = mapObjectReference.GetComponent<QuadTreeBasicMap>().Zoom;
-            float defaultZoom = 10f;
+            float defaultZoom = 12f;
 
             Debug.Log("<color=red>cam location:</color>" + cameraLocation);
             Debug.Log("<color=red>location provider CL :</color>" + currentRealLocation);

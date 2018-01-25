@@ -76,7 +76,7 @@
             //Distance from current location
             float xDistance = (float)currentLocation.x;
             float yDistance = (float)currentLocation.y;
-            float distanceConstant = 0.05f;
+            float distanceConstant = 0.03f;
            
             //Spawn no. of random locations specified in editor
             for (int i = 0; i < RandomLocationCount; i++)
