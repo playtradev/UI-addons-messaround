@@ -7,8 +7,11 @@ public class BattleManagerScript : MonoBehaviour {
 
     //Battle info
     [Header("Health Settings")]
-    public int player1Health;
-    public int player2Health;
+    [SerializeField]
+    private Stat player1Health;
+    [SerializeField]
+    private Stat player2Health;
+
     public bool player1ActionComplete;
     public bool player2ActionComplete;
 
@@ -25,10 +28,11 @@ public class BattleManagerScript : MonoBehaviour {
     public Button[] seedList1;
     public Button[] seedList2;
 
+    [Header("End of Game PopUp")]
+    public GameObject GameOverPopUpRef;
+
     //UI
     [Header("UI and Timer")]
-    public GameObject Player1HealthDisplay;
-    public GameObject Player2HealthDisplay;
     public Text infoPane;
     public Text Player1ATK;
     public Text Player1DEF;
@@ -41,22 +45,28 @@ public class BattleManagerScript : MonoBehaviour {
     public int timerDuration = 15;
     public bool isCountingDown = false;
 
+    void Awake()
+    {
+        player1Health.MaxVal = 28;
+        player2Health.MaxVal = 33;
+
+        player1Health.CurrentVal = 28;
+        player2Health.CurrentVal = 33;
+
+        player1Health.Initialize();
+        player2Health.Initialize();
+    }
 
     // Use this for initialization
     void Start ()
     {
         //TODO add maths in here to auto generate HP from Seed lvl
-        player1Health = 28;
-        player2Health = 33;
 
         damageCount1 = 0;
         defenceCount1 = 0;
 
         damageCount2 = 0;
         defenceCount2 = 0;
-
-        Player1HealthDisplay.GetComponent<Text>().text = "Player 1 HP: " + player1Health.ToString();
-        Player2HealthDisplay.GetComponent<Text>().text = "Player 2 HP: " + player2Health.ToString();
 
         StartCoroutine(BattleQueue());
     }
@@ -130,6 +140,7 @@ public class BattleManagerScript : MonoBehaviour {
                 SupportActions1(t);
             }
         }
+
         Player1ATK.text = "Overall ATK:" + damageCount1;
         Player1DEF.text = "Overall DEF:" + defenceCount1;
     }
@@ -257,17 +268,37 @@ public class BattleManagerScript : MonoBehaviour {
     }
 
     //Resolution phase
-    private void ResolutionPhase()
+    private IEnumerator ResolutionPhase1()
     {
-        player1Health = player1Health - (damageCount2 - defenceCount1);
-        player2Health = player2Health - (damageCount1 - defenceCount2);
+        //TODO put in defence stat shield animations
 
-        if (magicSupport1 == true) { player2Health = player2Health - (Mathf.CeilToInt((float)damageCount2 / 5)); }
-        if (magicSupport2 == true) { player1Health = player1Health - (Mathf.CeilToInt((float)damageCount1 / 5)); }
+        player2Health.CurrentVal = player2Health.CurrentVal - (damageCount1 - defenceCount2);
+        infoPane.text = "Player 1 deals " + (damageCount1 - defenceCount2) + " damage!";
+        yield return new WaitForSeconds(2f);
 
-        Debug.Log("<color=red>magic shell red will DEAL </color>" + Mathf.CeilToInt((float)damageCount2 / 5));
-        Debug.Log("<color=green>magic shell green will DEAL </color>" + Mathf.CeilToInt((float)damageCount1 / 5));
+        if (magicSupport2 == true)
+        {
+            infoPane.text = "But Player 2's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " damage!";
+            player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
+            yield return new WaitForSeconds(2f);
+        }
 
+        player1Health.CurrentVal = player1Health.CurrentVal - (damageCount2 - defenceCount1);
+        infoPane.text = "Player 2 deals " + (damageCount2 - defenceCount1) + " damage!";
+        yield return new WaitForSeconds(2f);
+   
+        if (magicSupport1 == true)
+        {
+            player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
+            infoPane.text = "But Player 1's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " damage!";
+            yield return new WaitForSeconds(2f);
+        }
+
+        ResetDamageCounters();
+}
+
+    private void ResetDamageCounters()
+    {
         //Reset Damage Counters
         damageCount1 = 0;
         defenceCount1 = 0;
@@ -276,17 +307,12 @@ public class BattleManagerScript : MonoBehaviour {
         magicSupport1 = false;
         magicSupport2 = false;
 
-        //Update HP UI
-        Player1HealthDisplay.GetComponent<Text>().text = "Player 1 HP: " + player1Health.ToString();
-        Player2HealthDisplay.GetComponent<Text>().text = "Player 2 HP: " + player2Health.ToString();
-
         //Reset ATT/DEF counters
         Player1ATK.text = "Overall ATK:";
         Player1DEF.text = "Overall DEF:";
         Player2ATK.text = "Overall ATK:";
         Player2DEF.text = "Overall DEF:";
-}
-
+    }
 
     //Combat Manager
     public IEnumerator BattleQueue()
@@ -325,12 +351,16 @@ public class BattleManagerScript : MonoBehaviour {
 
         //  ***Resolution Phase***
         infoPane.text = "RESOLVING COMBAT!";
-        yield return new WaitForSeconds(5f);
-        ResolutionPhase();
+        yield return StartCoroutine( ResolutionPhase1() );
+        
 
         //**End here if somebody is dead!***
-        if (player1Health <=0  || player2Health <= 0)
-        { yield break; }
+        if (player1Health.CurrentVal <= 0  || player2Health.CurrentVal <= 0)
+        {
+            GameOver();
+            infoPane.text = "Game Over, Man! Game Over";
+            yield break;
+        }
 
         //  ***Phase Three***
         infoPane.text = "<color=green> Green Player's Action </color>";
@@ -364,18 +394,37 @@ public class BattleManagerScript : MonoBehaviour {
 
         //  ***Resolution Phase***
         infoPane.text = "RESOLVING COMBAT!";
-        yield return new WaitForSeconds(5f);
+        yield return StartCoroutine(ResolutionPhase1());
 
         //***Restart if both alive***
-        ResolutionPhase();
-        if (player1Health > 0 && player2Health > 0)
+        yield return StartCoroutine( ResolutionPhase1() );
+        if (player1Health.CurrentVal > 0 && player2Health.CurrentVal > 0)
         { StartCoroutine(BattleQueue()); }
         else
         {
+            GameOver();
             infoPane.text = "Game Over, Man! Game Over";
+            yield break;
         }
     }
 
+    private void GameOver()
+    {
+        GameOverPopUpRef.gameObject.SetActive(true);
 
+        if (player1Health.CurrentVal < 1 && player2Health.CurrentVal < 1)
+        {
+            GameOverPopUpRef.transform.Find("EndGameText").GetComponent<Text>().text = "DRAW";
+        }
+        else if (player1Health.CurrentVal > 0 && player2Health.CurrentVal < 1)
+        {
+            GameOverPopUpRef.transform.Find("EndGameText").GetComponent<Text>().text = "Player 1 Wins";
+        }
+        else if (player1Health.CurrentVal < 1 && player2Health.CurrentVal > 0)
+        {
+            GameOverPopUpRef.transform.Find("EndGameText").GetComponent<Text>().text = "Player 2 Wins";
+        }
+
+    }
 
 }

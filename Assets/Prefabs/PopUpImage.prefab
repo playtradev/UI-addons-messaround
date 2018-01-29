@@ -372,7 +372,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114331172208622554}
-        m_MethodName: loadBattleScene
+        m_MethodName: FightButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
