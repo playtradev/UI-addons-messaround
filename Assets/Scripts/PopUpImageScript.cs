@@ -5,17 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class PopUpImageScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public GameObject parentEventRef;
 	
-    public void destroySelf()
+    public void CancelButton()
     {
-        Destroy(gameObject);
+        if (parentEventRef != null)
+        {
+            parentEventRef.GetComponent<BattleSelected>().IsNotSelected();
+        }
+
     }
 
-    public void loadBattleScene()
+    public void FightButton()
     {
         SceneManager.LoadScene("Combat", LoadSceneMode.Single);
     }

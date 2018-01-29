@@ -657,7 +657,7 @@ MonoBehaviour:
   MaskBuffer: 1
   JumpOnEnable: 0
   RestartOnEnable: 0
-  UseParentTransform: 1
+  UseParentTransform: 0
   ChildObjects: []
   m_OnSelectionChangeStartEvent:
     m_PersistentCalls:
@@ -669,6 +669,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 992947171}
         m_MethodName: EnableScroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 806867367}
+        m_MethodName: EnableMapTouch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1318,6 +1329,7 @@ GameObject:
   - component: {fileID: 806867364}
   - component: {fileID: 806867363}
   - component: {fileID: 806867366}
+  - component: {fileID: 806867367}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1376,12 +1388,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 806867362}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e277184c045f14f41b833de3be249f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   selectedEvent: {fileID: 0}
+--- !u!114 &806867367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 806867362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464c8945adfe4d747aedab6b67ba4156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystemRef: {fileID: 806867362}
+  scrollSnapRef: {fileID: 440280633}
 --- !u!1 &812047973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,53 +1631,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1622536723198236, guid: 35380da57a9fa9142b5babdeb11e85bc,
     type: 2}
   m_PrefabInternal: {fileID: 1355779935}
---- !u!114 &992947168
+--- !u!114 &992947171 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 992947166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96f0fa82f89d64bb9a6524c72d538179, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _map: {fileID: 1167912649}
---- !u!114 &992947169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 992947166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf32ea2cc0514b569329f6b6b68f9b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _map: {fileID: 1167912649}
-  _locationStrings:
-  - 
-  - 
-  - 
-  _spawnScale: 1
-  _markerPrefab: {fileID: 1780166644722094, guid: d4b0f36dcc8df7747bb0aa745f493574,
+  m_PrefabParentObject: {fileID: 114251864561506396, guid: 35380da57a9fa9142b5babdeb11e85bc,
     type: 2}
-  AbstractLocationProviderRef: {fileID: 265613214}
-  CanvasRef: {fileID: 1566922025}
-  RandomLocationCount: 8
---- !u!114 &992947171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 992947166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_PrefabInternal: {fileID: 1355779935}
   m_Script: {fileID: 11500000, guid: 2f1c3af42d879954088be14c5a3865bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveScriptRef: {fileID: 992947166}
-  scrollSnapRef: {fileID: 440280633}
 --- !u!114 &1167912649 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114707558263166114, guid: 35380da57a9fa9142b5babdeb11e85bc,
@@ -1994,6 +1978,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114251864561506396, guid: 35380da57a9fa9142b5babdeb11e85bc,
+        type: 2}
+      propertyPath: scrollSnapRef
+      value: 
+      objectReference: {fileID: 440280633}
+    - target: {fileID: 114480097492665226, guid: 35380da57a9fa9142b5babdeb11e85bc,
+        type: 2}
+      propertyPath: AbstractLocationProviderRef
+      value: 
+      objectReference: {fileID: 646832583}
+    - target: {fileID: 114480097492665226, guid: 35380da57a9fa9142b5babdeb11e85bc,
+        type: 2}
+      propertyPath: CanvasRef
+      value: 
+      objectReference: {fileID: 1566922025}
     - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: _referenceCamera
@@ -2004,75 +2003,7 @@ Prefab:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 1330081203}
-    - target: {fileID: 114707558263166114, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _latitudeLongitudeString
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1622536723198236, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114707558263166114, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _unityTileSize
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114707558263166114, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _zoom
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114707558263166114, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _root
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114707558263166114, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _mapVisualizer
-      value: 
-      objectReference: {fileID: 11400000, guid: 727577ccc9e54ee41af4a63840e2ee81,
-        type: 2}
-    - target: {fileID: 114364336031774762, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114364336031774762, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _map
-      value: 
-      objectReference: {fileID: 1167912649}
-    - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _zoomSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _panSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954144691960344, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954144691960344, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4954144691960344, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114364336031774762, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1416861141

@@ -22,7 +22,9 @@ GameObject:
   - component: {fileID: 114707558263166114}
   - component: {fileID: 114674103805000250}
   - component: {fileID: 114003425715770030}
-  - component: {fileID: 114364336031774762}
+  - component: {fileID: 114317387847352174}
+  - component: {fileID: 114480097492665226}
+  - component: {fileID: 114251864561506396}
   m_Layer: 5
   m_Name: Map
   m_TagString: Untagged
@@ -37,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1622536723198236}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -11, z: 2}
-  m_LocalScale: {x: 0.057206694, y: 0.057206713, z: 0.057206713}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,27 +56,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c699b8e1864b4b248acb7a04ede9480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _panSpeed: 15
-  _zoomSpeed: 1
+  _panSpeed: 8
+  _zoomSpeed: 0.5
   _referenceCamera: {fileID: 0}
   _quadTreeTileProvider: {fileID: 114674103805000250}
   _dynamicZoomMap: {fileID: 114707558263166114}
   _useDegreeMethod: 0
---- !u!114 &114364336031774762
+--- !u!114 &114251864561506396
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1622536723198236}
-  m_Enabled: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1c3af42d879954088be14c5a3865bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveScriptRef: {fileID: 1622536723198236}
+  scrollSnapRef: {fileID: 0}
+--- !u!114 &114317387847352174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622536723198236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f0fa82f89d64bb9a6524c72d538179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _map: {fileID: 114707558263166114}
+--- !u!114 &114480097492665226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622536723198236}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcf32ea2cc0514b569329f6b6b68f9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _map: {fileID: 0}
-  _locationStrings: []
-  _spawnScale: 100
-  _markerPrefab: {fileID: 0}
+  _map: {fileID: 114707558263166114}
+  _locationStrings:
+  - 
+  - 
+  - 
+  _spawnScale: 1
+  _markerPrefab: {fileID: 1780166644722094, guid: d4b0f36dcc8df7747bb0aa745f493574,
+    type: 2}
+  AbstractLocationProviderRef: {fileID: 0}
+  CanvasRef: {fileID: 0}
+  RandomLocationCount: 8
 --- !u!114 &114674103805000250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,9 +135,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _zoom: 12
   _initializeOnStart: 1
-  _latitudeLongitudeString: 51.50722, -0.1275
-  _root: {fileID: 4954144691960344}
+  _latitudeLongitudeString: 
+  _root: {fileID: 0}
   _tileProvider: {fileID: 114674103805000250}
   _mapVisualizer: {fileID: 11400000, guid: 727577ccc9e54ee41af4a63840e2ee81, type: 2}
-  _unityTileSize: 15
+  _unityTileSize: 25
   _snapMapHeightToZero: 1

@@ -2,24 +2,23 @@
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class EnableMapScroll : MonoBehaviour
+    public class EnableTouchHandler : MonoBehaviour
     {
-        public GameObject moveScriptRef;
+        public GameObject eventSystemRef;
         public GameObject scrollSnapRef;
 
         //This is triggered by VerticalScrollSnap 'On Selection Page Changed Event'
-        public void EnableScroll()
+        public void EnableMapTouch()
         {
             if (scrollSnapRef.GetComponent<UnityEngine.UI.Extensions.VerticalScrollSnap>().CurrentPage == 1)
             {
-                //Enable the Map Scroll (camera movement) Script
-                moveScriptRef.GetComponent<Mapbox.Examples.QuadTreeCameraMovement>().enabled = true;
+                //Enable Raycasting Touch Handler script
+                eventSystemRef.GetComponent<TouchHandler>().enabled = true;
             }
             else
             {
-                moveScriptRef.GetComponent<Mapbox.Examples.QuadTreeCameraMovement>().enabled = false;
+                eventSystemRef.GetComponent<TouchHandler>().enabled = false;
             }
         }
 
     }
-
