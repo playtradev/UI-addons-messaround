@@ -36,7 +36,7 @@ public class BattleManagerScript : MonoBehaviour {
     public GameObject GameOverPopUpRef;
 
     //UI
-    [Header("UI and Timer")]
+    [Header("UI")]
     public Text infoPane;
     public Text Player1ATK;
     public Text Player1DEF;
@@ -44,6 +44,7 @@ public class BattleManagerScript : MonoBehaviour {
     public Text Player2DEF;
 
     //Timer
+    [Header("Timer")]
     public Text timerText;
     public int timeRemaining;
     public int timerDuration = 15;
@@ -117,6 +118,7 @@ public class BattleManagerScript : MonoBehaviour {
             isCountingDown = false;
         }
         timerText.text = timeRemaining.ToString();
+        //(float)timeRemaining / timerDuration;
     }
 
     //Player turns
