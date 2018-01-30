@@ -12,6 +12,6 @@ What should I call you?
 Woah,_NEW_LINE_PLAYER_USERNAME!?_NEW_LINE_What a cool name!
 Well then, let’s begin. Scroll down when you are ready.
 
-
+Welcomst backe, Oh_NEW_LINE_PLAYER_USERNAME,_NEW_LINE_my bravest Warrior! Scroll ye down whenst thou art ready
 
 Hmm, I didn't get that._NEW_LINE_How about I call you _RANDOM_USERNAME_?

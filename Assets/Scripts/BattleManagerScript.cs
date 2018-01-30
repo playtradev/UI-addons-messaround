@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class BattleManagerScript : MonoBehaviour {
 
     //Battle info
-    [Header("Health Settings")]
+    [Header("Health and Defence bars")]
     [SerializeField]
     private Stat player1Health;
     [SerializeField]
+    private Stat player1Defence;
+    [SerializeField]
     private Stat player2Health;
-
-    public bool player1ActionComplete;
-    public bool player2ActionComplete;
+    [SerializeField]
+    private Stat player2Defence;
 
     //Combat counters
     private int damageCount1;
@@ -22,6 +23,9 @@ public class BattleManagerScript : MonoBehaviour {
     private int defenceCount2;
     private bool magicSupport1;
     private bool magicSupport2;
+
+    private bool player1ActionComplete;
+    private bool player2ActionComplete;
 
     //seed position
     [Header("Seed Array List")]
@@ -47,14 +51,19 @@ public class BattleManagerScript : MonoBehaviour {
 
     void Awake()
     {
+        //TODO make these auto calculate from seed stats
         player1Health.MaxVal = 28;
         player2Health.MaxVal = 33;
-
         player1Health.CurrentVal = 28;
         player2Health.CurrentVal = 33;
 
-        player1Health.Initialize();
-        player2Health.Initialize();
+        player1Defence.MaxVal = 11;
+        player2Defence.MaxVal = 17;
+        player1Defence.CurrentVal = 0;
+        player2Defence.CurrentVal = 0;
+
+        //player1Health.Initialize();
+        //player2Health.Initialize();
     }
 
     // Use this for initialization
@@ -270,35 +279,108 @@ public class BattleManagerScript : MonoBehaviour {
     //Resolution phase
     private IEnumerator ResolutionPhase1()
     {
-        //TODO put in defence stat shield animations
-
-        player2Health.CurrentVal = player2Health.CurrentVal - (damageCount1 - defenceCount2);
-        infoPane.text = "Player 1 deals " + (damageCount1 - defenceCount2) + " damage!";
+        //Generate P1 Shield
+        player1Defence.CurrentVal = defenceCount1;
+        infoPane.text = "Player 1 gains " + (defenceCount1) + " defence points";
         yield return new WaitForSeconds(2f);
 
+        //Generate P2 Shield
+        player2Defence.CurrentVal = defenceCount2;
+        infoPane.text = "Player 2 gains " + (defenceCount2) + " defence points";
+        yield return new WaitForSeconds(2f);
+
+        //Deal P1 damage
+        infoPane.text = "Player 1 deals " + (damageCount1) + " damage!";
+        if ((player2Defence.CurrentVal > 0) && (damageCount1 > 0))
+        {
+            player2Defence.CurrentVal = player2Defence.CurrentVal - damageCount1;
+            yield return new WaitForSeconds(1f);
+        }
+        player2Health.CurrentVal = player2Health.CurrentVal - (damageCount1 - defenceCount2);
+        yield return new WaitForSeconds(2f);
+        //Check for magic support seed
         if (magicSupport2 == true)
         {
-            infoPane.text = "But Player 2's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " damage!";
+            infoPane.text = "Player 2's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " TRUE damage!";
             player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
             yield return new WaitForSeconds(2f);
         }
 
+        //Deal P2 damage
+        infoPane.text = "Player 2 deals " + (damageCount2) + " damage!";
+        if ((player1Defence.CurrentVal > 0) && (damageCount2 > 0))
+        {
+            player1Defence.CurrentVal = player1Defence.CurrentVal - damageCount2;
+            yield return new WaitForSeconds(1f);
+        }
         player1Health.CurrentVal = player1Health.CurrentVal - (damageCount2 - defenceCount1);
-        infoPane.text = "Player 2 deals " + (damageCount2 - defenceCount1) + " damage!";
         yield return new WaitForSeconds(2f);
-   
+        //Check for magic support seed
         if (magicSupport1 == true)
         {
             player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
-            infoPane.text = "But Player 1's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " damage!";
+            infoPane.text = "Player 1's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " TRUE damage!";
             yield return new WaitForSeconds(2f);
         }
 
         ResetDamageCounters();
 }
 
+    private IEnumerator ResolutionPhase2()
+    {
+        //Generate P2 Shield
+        player2Defence.CurrentVal = defenceCount2;
+        infoPane.text = "Player 2 gains " + (defenceCount2) + " defence points";
+        yield return new WaitForSeconds(2f);
+
+        //Generate P1 Shield
+        player1Defence.CurrentVal = defenceCount1;
+        infoPane.text = "Player 1 gains " + (defenceCount1) + " defence points";
+        yield return new WaitForSeconds(2f);
+
+        //Deal P2 damage
+        infoPane.text = "Player 2 deals " + (damageCount2) + " damage!";
+        if ((player1Defence.CurrentVal > 0) && (damageCount2 > 0))
+        {
+            player1Defence.CurrentVal = player1Defence.CurrentVal - damageCount2;
+            yield return new WaitForSeconds(1f);
+        }
+        player1Health.CurrentVal = player1Health.CurrentVal - (damageCount2 - defenceCount1);
+        yield return new WaitForSeconds(2f);
+        //Check for magic support seed
+        if (magicSupport1 == true)
+        {
+            infoPane.text = "Player 1's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " TRUE damage!";
+            player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
+            yield return new WaitForSeconds(2f);
+        }
+
+        //Deal P1 damage
+        infoPane.text = "Player 1 deals " + (damageCount1) + " damage!";
+        if ((player2Defence.CurrentVal > 0) && (damageCount1 > 0))
+        {
+            player2Defence.CurrentVal = player2Defence.CurrentVal - damageCount1;
+            yield return new WaitForSeconds(1f);
+        }
+        player2Health.CurrentVal = player2Health.CurrentVal - (damageCount1 - defenceCount2);
+        yield return new WaitForSeconds(2f);
+        //Check for magic support seed
+        if (magicSupport2 == true)
+        {
+            player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
+            infoPane.text = "Player 2's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " TRUE damage!";
+            yield return new WaitForSeconds(2f);
+        }
+
+        ResetDamageCounters();
+    }
+
     private void ResetDamageCounters()
     {
+        //Reset Defence
+        player1Defence.CurrentVal = 0;
+        player2Defence.CurrentVal = 0;
+
         //Reset Damage Counters
         damageCount1 = 0;
         defenceCount1 = 0;
@@ -393,11 +475,9 @@ public class BattleManagerScript : MonoBehaviour {
         StopTimer();
 
         //  ***Resolution Phase***
-        infoPane.text = "RESOLVING COMBAT!";
-        yield return StartCoroutine(ResolutionPhase1());
+        yield return StartCoroutine( ResolutionPhase1() );
 
         //***Restart if both alive***
-        yield return StartCoroutine( ResolutionPhase1() );
         if (player1Health.CurrentVal > 0 && player2Health.CurrentVal > 0)
         { StartCoroutine(BattleQueue()); }
         else

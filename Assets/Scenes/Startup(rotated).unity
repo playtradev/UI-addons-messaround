@@ -1525,9 +1525,6 @@ MonoBehaviour:
   nextButton: {fileID: 794548327}
   textFile: {fileID: 4900000, guid: 5d035eeb4d2247e4caaebc610486c0fe, type: 3}
   textBox: {fileID: 1595768510}
-  mineDialogue: []
-  currentLine: 0
-  endAtLine: 0
   recentreMapButton: {fileID: 0}
   inputName: {fileID: 1305067389}
   submitNameButton: {fileID: 1116390270}
@@ -1552,11 +1549,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 915285d85aed1634bb37cbf4eb8aaa5a, type: 3}
   - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
   - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
-  - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
+  - {fileID: 21300000, guid: fb03c9269d51c9443868bed6e77bfc01, type: 3}
   - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
   - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
   - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
-  currentFace: 0
 --- !u!1 &845136498
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,3 +3004,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2013447666}
+--- !u!1 &2062638208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2062638210}
+  - component: {fileID: 2062638209}
+  m_Layer: 0
+  m_Name: PersistentInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2062638209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2062638208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcb750fafd1af0242ac1b2556e8766c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerUsername: 
+  Initialised: 0
+  DialogueHandlerRef: {fileID: 812047973}
+--- !u!4 &2062638210
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2062638208}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 563.82477, y: 603.94635, z: 6.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

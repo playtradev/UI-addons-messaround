@@ -14,10 +14,11 @@ namespace UnityEngine.UI.Extensions
         void Start()
         {
             _isVertical = true;
-            _childAnchorPoint = new Vector2(0.5f,0);
             _currentPage = StartingScreen;
+            _childAnchorPoint = new Vector2(0.5f,0);
             panelDimensions = gameObject.GetComponent<RectTransform>().rect;
             UpdateLayout();
+
         }
 
         void Update()

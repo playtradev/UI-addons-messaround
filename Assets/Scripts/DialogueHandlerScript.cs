@@ -10,9 +10,9 @@ public class DialogueHandlerScript : MonoBehaviour {
     public Button nextButton;
     public TextAsset textFile;
     public Text textBox;
-    public string[] mineDialogue;
-    public int currentLine;
-    public int endAtLine;
+    private string[] mineDialogue;
+    private int currentLine;
+    private int endAtLine;
 
     [Header("GPS")]
     public Button recentreMapButton;
@@ -33,14 +33,13 @@ public class DialogueHandlerScript : MonoBehaviour {
     [Header("Face Sprites")]
     public Image currentFaceImage;
     public Sprite[] spriteList;
-    public int currentFace;
+    private int currentFace;
 
     //private string[] locationStringsX = new string[3];
 
     // Use this for initialization
     void Start()
     {
-
         currentLine = 0;
         currentFace = 0;
 
@@ -57,6 +56,14 @@ public class DialogueHandlerScript : MonoBehaviour {
         }
 
         CheckLine();
+
+        if (GameObject.Find("PersistentInfo").GetComponent<PersistentScript>().Initialised == true)
+        {
+            userName = GameObject.Find("PersistentInfo").GetComponent<PersistentScript>().PlayerUsername;
+            currentLine = 14;
+            currentFace = 14;
+            CheckLine();
+        }
     }
 
     //Updates Dialogue +1
@@ -97,8 +104,21 @@ public class DialogueHandlerScript : MonoBehaviour {
             }
             if (currentLine == 13)
             {
+            // TODO this if is hacky AF.
+                if (userName != null)
+                {
+                GameObject.Find("PersistentInfo").GetComponent<PersistentScript>().PushUserName();
+                }
+
                 nextButton.gameObject.SetActive(false);
                 ScrollSnapRef.GetComponent<ScrollRect>().vertical = true;
+            }
+
+            // Jumps to here when already initialised
+            if (currentLine == 15)
+            {
+            nextButton.gameObject.SetActive(false);
+            ScrollSnapRef.GetComponent<ScrollRect>().vertical = true;
             }
     }
 

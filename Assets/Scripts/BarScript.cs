@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour {
+public class BarScript : MonoBehaviour {
 
     private float fillAmount;
 
@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour {
     [SerializeField]
     private Text valueText;
 
-    public float MaxHP { get; set; }
+    public float MaxVal { get; set; }
 
     private void Update()
     {
@@ -29,7 +29,7 @@ public class HealthBar : MonoBehaviour {
         {
             string[] tmp = valueText.text.Split(':');
             valueText.text = tmp[0] + ": " + value;
-            fillAmount = HpConvert(value, 0, MaxHP, 0, 1);
+            fillAmount = HpConvert(value, 0, MaxVal, 0, 1);
         }
     }
 

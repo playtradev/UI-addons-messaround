@@ -6,7 +6,7 @@ using UnityEngine;
 public class Stat
 {
     [SerializeField]
-    private HealthBar bar;
+    private BarScript bar;
 
     [SerializeField]
     private float maxVal;
@@ -38,7 +38,7 @@ public class Stat
         set
         {
             maxVal = value;
-            bar.MaxHP = value;
+            bar.MaxVal = value;
         }
     }
 
