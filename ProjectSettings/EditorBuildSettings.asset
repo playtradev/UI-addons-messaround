@@ -8,9 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Startup.unity
     guid: 9a58395a45b97bc4f89e269a135541bd
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/Startup(rotated).unity
+    guid: b6a3148acb1ae5644ae2d7a813ccf593
+  - enabled: 0
     path: Assets/Scenes/Combat.unity
     guid: cefaa1809ba966b4899e153d208f81b8
   - enabled: 1
-    path: Assets/Scenes/Startup(rotated).unity
-    guid: b6a3148acb1ae5644ae2d7a813ccf593
+    path: Assets/Scenes/P10_Startup.unity
+    guid: 589eee02f14ec5d4eb168ab41d0db765
+  - enabled: 1
+    path: Assets/Scenes/P10_Combat.unity
+    guid: fea601452e3260c45a5e64e25224e159

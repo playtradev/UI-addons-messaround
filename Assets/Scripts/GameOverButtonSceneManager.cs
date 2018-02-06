@@ -8,6 +8,6 @@ public class GameOverButtonSceneManager : MonoBehaviour {
 
     public void ReturnHome()
     {
-        SceneManager.LoadScene("Startup(rotated)", LoadSceneMode.Single);
+        SceneManager.LoadScene("P10_Startup", LoadSceneMode.Single);
     }
 }

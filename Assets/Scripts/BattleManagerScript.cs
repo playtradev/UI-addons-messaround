@@ -5,8 +5,43 @@ using UnityEngine.UI;
 
 public class BattleManagerScript : MonoBehaviour {
 
+    //Seed position
+    [Header("Seed Array List")]
+    [SerializeField]
+    private Button[] seedList1;
+    [SerializeField]
+    private Button[] seedList2;
+
+    //UI
+    [Header("UI")]
+    [SerializeField]
+    private Text infoPane;
+    [SerializeField]
+    private Text Player1ATK;
+    [SerializeField]
+    private Text Player1DEF;
+    [SerializeField]
+    private Text Player2ATK;
+    [SerializeField]
+    private Text Player2DEF;
+    [SerializeField]
+    private GameObject player1Face;
+    [SerializeField]
+    private GameObject player2Face;
+    [SerializeField]
+    private Sprite[] faceAnimations;
+
+    //Timer
+    [Header("Timer")]
+    public int timeRemaining;
+    public int timerDuration = 15;
+    [SerializeField]
+    private Text timerText;
+    [SerializeField]
+    private bool isCountingDown = false;
+
     //Battle info
-    [Header("Health and Defence bars")]
+    [Header("Health and Defence Bars")]
     [SerializeField]
     private Stat player1Health;
     [SerializeField]
@@ -15,6 +50,11 @@ public class BattleManagerScript : MonoBehaviour {
     private Stat player2Health;
     [SerializeField]
     private Stat player2Defence;
+
+
+    [Header("End of Game PopUp")]
+    [SerializeField]
+    private GameObject GameOverPopUpRef;
 
     //Combat counters
     private int damageCount1;
@@ -27,32 +67,13 @@ public class BattleManagerScript : MonoBehaviour {
     private bool player1ActionComplete;
     private bool player2ActionComplete;
 
-    //seed position
-    [Header("Seed Array List")]
-    public Button[] seedList1;
-    public Button[] seedList2;
 
-    [Header("End of Game PopUp")]
-    public GameObject GameOverPopUpRef;
 
-    //UI
-    [Header("UI")]
-    public Text infoPane;
-    public Text Player1ATK;
-    public Text Player1DEF;
-    public Text Player2ATK;
-    public Text Player2DEF;
 
-    //Timer
-    [Header("Timer")]
-    public Text timerText;
-    public int timeRemaining;
-    public int timerDuration = 15;
-    public bool isCountingDown = false;
 
     void Awake()
     {
-        //TODO make these auto calculate from seed stats
+        //TODO make all these auto calculate from seed stats
         player1Health.MaxVal = 28;
         player2Health.MaxVal = 33;
         player1Health.CurrentVal = 28;
@@ -63,22 +84,24 @@ public class BattleManagerScript : MonoBehaviour {
         player1Defence.CurrentVal = 0;
         player2Defence.CurrentVal = 0;
 
-        //player1Health.Initialize();
-        //player2Health.Initialize();
+
     }
 
     // Use this for initialization
     void Start ()
     {
         //TODO add maths in here to auto generate HP from Seed lvl
-
         damageCount1 = 0;
         defenceCount1 = 0;
 
         damageCount2 = 0;
         defenceCount2 = 0;
 
-        StartCoroutine(BattleQueue());
+        player1ActionComplete = true;
+        player2ActionComplete = true;
+
+
+    StartCoroutine(BattleQueue());
     }
 
     //Timer functions
@@ -121,7 +144,7 @@ public class BattleManagerScript : MonoBehaviour {
         //(float)timeRemaining / timerDuration;
     }
 
-    //Player turns
+    //Player turns, simply for end turn button
     public void PlayerOneEndTurn()
     {
         player1ActionComplete = true;
@@ -132,7 +155,45 @@ public class BattleManagerScript : MonoBehaviour {
         player2ActionComplete = true;
     }
 
-    //Action/Reaction Phases
+    //Setting Seeds Interactable or Not
+    private void SetInteractableSeeds()
+    {
+        if (player1ActionComplete == false)
+        {
+            for (int t = 0; t < seedList1.Length; t++)
+            {
+                seedList1[t].GetComponent<Button>().interactable = true;
+                player1Face.GetComponent<Image>().sprite = faceAnimations[1];
+            }
+        }
+        else if (player1ActionComplete == true)
+        {
+            for (int t = 0; t < seedList1.Length; t++)
+            {
+                seedList1[t].GetComponent<Button>().interactable = false;
+                player1Face.GetComponent<Image>().sprite = faceAnimations[0];
+            }
+        }
+
+        if (player2ActionComplete == false)
+        {
+            for (int t = 0; t < seedList2.Length; t++)
+            {
+                seedList2[t].GetComponent<Button>().interactable = true;
+                player2Face.GetComponent<Image>().sprite = faceAnimations[1];
+            }
+        }
+        else if (player2ActionComplete == true)
+        {
+            for (int t = 0; t < seedList2.Length; t++)
+            {
+                seedList2[t].GetComponent<Button>().interactable = false;
+                player2Face.GetComponent<Image>().sprite = faceAnimations[0];
+            }
+        }
+    }
+
+    //Action + Reaction Phases
     private void ActionPhase()
     {
         //Iterate through Player 1's seeds and add up damage/defence
@@ -152,8 +213,8 @@ public class BattleManagerScript : MonoBehaviour {
             }
         }
 
-        Player1ATK.text = "Overall ATK:" + damageCount1;
-        Player1DEF.text = "Overall DEF:" + defenceCount1;
+        Player1ATK.text = "" + damageCount1;
+        Player1DEF.text = "" + defenceCount1;
     }
 
     private void ActionPhaseFailed()
@@ -167,9 +228,12 @@ public class BattleManagerScript : MonoBehaviour {
             //Add to defence Val
             defenceCount1 = defenceCount1 + seedList1[t].GetComponent<SeedScript>().defenceVal;
         }
-        Debug.Log("<color=red>OUT OF TIME, BUCKO. FULL DEFENSE </color>");
-        Player1ATK.text = "Overall ATK:" + damageCount1;
-        Player1DEF.text = "Overall DEF:" + defenceCount1;
+        Debug.Log("<color=red>OUT OF TIME </color>");
+
+        Player1ATK.text = "" + damageCount1;
+        Player1DEF.text = "" + defenceCount1;
+
+        player1ActionComplete = true;
     }
 
     private void ReactionPhase()
@@ -190,8 +254,8 @@ public class BattleManagerScript : MonoBehaviour {
                 SupportActions2(t);
             }
         }
-        Player2ATK.text = "Overall ATK:" + damageCount2;
-        Player2DEF.text = "Overall DEF:" + defenceCount2;
+        Player2ATK.text = "" + damageCount2;
+        Player2DEF.text = "" + defenceCount2;
     }
 
     private void ReactionPhaseFailed()
@@ -203,8 +267,11 @@ public class BattleManagerScript : MonoBehaviour {
             defenceCount2 = defenceCount2 + seedList2[t].GetComponent<SeedScript>().defenceVal;
         }
         Debug.Log("<color=red> OUT OF TIME, GREEN BOY. FULL DEFENCE </color>");
-        Player2ATK.text = "Overall ATK:" + damageCount2;
-        Player2DEF.text = "Overall DEF:" + defenceCount2;
+
+        Player2ATK.text = "" + damageCount2;
+        Player2DEF.text = "" + defenceCount2;
+
+        player2ActionComplete = true;
     }
 
     //Support seed functions
@@ -298,7 +365,7 @@ public class BattleManagerScript : MonoBehaviour {
             player2Defence.CurrentVal = player2Defence.CurrentVal - damageCount1;
             yield return new WaitForSeconds(1f);
         }
-        player2Health.CurrentVal = player2Health.CurrentVal - (damageCount1 - defenceCount2);
+        player2Health.CurrentVal = player2Health.CurrentVal - Mathf.Clamp(damageCount1 - defenceCount2, 0, int.MaxValue);
         yield return new WaitForSeconds(2f);
         //Check for magic support seed
         if (magicSupport2 == true)
@@ -315,7 +382,7 @@ public class BattleManagerScript : MonoBehaviour {
             player1Defence.CurrentVal = player1Defence.CurrentVal - damageCount2;
             yield return new WaitForSeconds(1f);
         }
-        player1Health.CurrentVal = player1Health.CurrentVal - (damageCount2 - defenceCount1);
+        player1Health.CurrentVal = player1Health.CurrentVal - Mathf.Clamp(damageCount2 - defenceCount1, 0, int.MaxValue);
         yield return new WaitForSeconds(2f);
         //Check for magic support seed
         if (magicSupport1 == true)
@@ -347,7 +414,7 @@ public class BattleManagerScript : MonoBehaviour {
             player1Defence.CurrentVal = player1Defence.CurrentVal - damageCount2;
             yield return new WaitForSeconds(1f);
         }
-        player1Health.CurrentVal = player1Health.CurrentVal - (damageCount2 - defenceCount1);
+        player1Health.CurrentVal = player1Health.CurrentVal - Mathf.Clamp(damageCount2 - defenceCount1, 0, int.MaxValue);
         yield return new WaitForSeconds(2f);
         //Check for magic support seed
         if (magicSupport1 == true)
@@ -364,7 +431,7 @@ public class BattleManagerScript : MonoBehaviour {
             player2Defence.CurrentVal = player2Defence.CurrentVal - damageCount1;
             yield return new WaitForSeconds(1f);
         }
-        player2Health.CurrentVal = player2Health.CurrentVal - (damageCount1 - defenceCount2);
+        player2Health.CurrentVal = player2Health.CurrentVal - Mathf.Clamp(damageCount1 - defenceCount2, 0, int.MaxValue);
         yield return new WaitForSeconds(2f);
         //Check for magic support seed
         if (magicSupport2 == true)
@@ -392,18 +459,19 @@ public class BattleManagerScript : MonoBehaviour {
         magicSupport2 = false;
 
         //Reset ATT/DEF counters
-        Player1ATK.text = "Overall ATK:";
-        Player1DEF.text = "Overall DEF:";
-        Player2ATK.text = "Overall ATK:";
-        Player2DEF.text = "Overall DEF:";
+        Player1ATK.text = "0";
+        Player1DEF.text = "0";
+        Player2ATK.text = "0";
+        Player2DEF.text = "0";
     }
 
     //Combat Manager
     public IEnumerator BattleQueue()
     {
         //  ***Phase One***
-        infoPane.text = "<color=red>Red Player's Action </color>";
-           player1ActionComplete = false;
+        infoPane.text = "Player 1's Action";
+        player1ActionComplete = false;
+        SetInteractableSeeds();
         BeginTimer();
         
         yield return new WaitUntil(() => { return timeRemaining <= 0 || player1ActionComplete;  });
@@ -417,9 +485,11 @@ public class BattleManagerScript : MonoBehaviour {
         }
         StopTimer();
 
+
         //  ***Phase Two***
-        infoPane.text = "<color=green> Green Player's Reaction </color>";
+        infoPane.text = "Player 2's Reaction";
         player2ActionComplete = false;
+        SetInteractableSeeds();
         BeginTimer();
 
         yield return new WaitUntil(() => { return timeRemaining <= 0 || player2ActionComplete; });
@@ -433,8 +503,10 @@ public class BattleManagerScript : MonoBehaviour {
         }
         StopTimer();
 
+
         //  ***Resolution Phase***
         infoPane.text = "RESOLVING COMBAT!";
+        SetInteractableSeeds();
         yield return StartCoroutine( ResolutionPhase1() );
         
 
@@ -446,9 +518,11 @@ public class BattleManagerScript : MonoBehaviour {
             yield break;
         }
 
+
         //  ***Phase Three***
-        infoPane.text = "<color=green> Green Player's Action </color>";
+        infoPane.text = "Player 2's Action";
         player2ActionComplete = false;
+        SetInteractableSeeds();
         BeginTimer();
         yield return new WaitUntil(() => { return timeRemaining <= 0 || player2ActionComplete; });
         if (player2ActionComplete == true)
@@ -461,9 +535,11 @@ public class BattleManagerScript : MonoBehaviour {
         }
         StopTimer();
 
+
         //  ***Phase Four***
-        infoPane.text = "<color=red>Red Player's Reaction </color>";
+        infoPane.text = "Player 1's Reaction";
         player1ActionComplete = false;
+        SetInteractableSeeds();
         BeginTimer();
         yield return new WaitUntil(() => { return timeRemaining <= 0 || player1ActionComplete; });
         if (player1ActionComplete == true)
@@ -476,8 +552,11 @@ public class BattleManagerScript : MonoBehaviour {
         }
         StopTimer();
 
+
         //  ***Resolution Phase***
+        SetInteractableSeeds();
         yield return StartCoroutine( ResolutionPhase1() );
+
 
         //***Restart if both alive***
         if (player1Health.CurrentVal > 0 && player2Health.CurrentVal > 0)
@@ -490,6 +569,7 @@ public class BattleManagerScript : MonoBehaviour {
         }
     }
 
+    //Game Over PopUp
     private void GameOver()
     {
         GameOverPopUpRef.gameObject.SetActive(true);

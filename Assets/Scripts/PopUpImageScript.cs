@@ -18,6 +18,6 @@ public class PopUpImageScript : MonoBehaviour {
 
     public void FightButton()
     {
-        SceneManager.LoadScene("Combat", LoadSceneMode.Single);
+        SceneManager.LoadScene("P10_Combat", LoadSceneMode.Single);
     }
 }
