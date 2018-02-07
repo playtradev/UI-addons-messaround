@@ -83,8 +83,6 @@ public class BattleManagerScript : MonoBehaviour {
         player2Defence.MaxVal = 17;
         player1Defence.CurrentVal = 0;
         player2Defence.CurrentVal = 0;
-
-
     }
 
     // Use this for initialization
@@ -194,8 +192,12 @@ public class BattleManagerScript : MonoBehaviour {
     }
 
     //Action + Reaction Phases
-    private void ActionPhase()
+    public void ActionPhase()
     {
+        damageCount1 = 0;
+        defenceCount1 = 0;
+        magicSupport1 = false;
+
         //Iterate through Player 1's seeds and add up damage/defence
         for (int t = 0; t < seedList1.Length; t++)
         {
@@ -219,6 +221,10 @@ public class BattleManagerScript : MonoBehaviour {
 
     private void ActionPhaseFailed()
     {
+        damageCount1 = 0;
+        defenceCount1 = 0;
+        magicSupport1 = false;
+
         //If timer runs out, iterate through all seeds to set full defence
         for (int t = 0; t < seedList1.Length; t++)
         {
@@ -236,8 +242,12 @@ public class BattleManagerScript : MonoBehaviour {
         player1ActionComplete = true;
     }
 
-    private void ReactionPhase()
+    public void ReactionPhase()
     {
+        damageCount2 = 0;
+        defenceCount2 = 0;
+        magicSupport2 = false;
+
         //Iterate through Player 2's seeds and add up damage/defence
         for (int t = 0; t < seedList2.Length; t++)
         {
@@ -260,6 +270,10 @@ public class BattleManagerScript : MonoBehaviour {
 
     private void ReactionPhaseFailed()
     {
+        damageCount2 = 0;
+        defenceCount2 = 0;
+        magicSupport2 = false;
+
         //If timer runs out, set all seeds to defend and set full defence
         for (int t = 0; t < seedList2.Length; t++)
         {
@@ -295,11 +309,11 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Might")
             {
-                seedList1[0].GetComponent<SeedScript>().defenceVal += (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                defenceCount1 = defenceCount1 + (seedList1[0].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
             }
             else if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                seedList1[2].GetComponent<SeedScript>().defenceVal += (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                defenceCount1 = defenceCount1 + (seedList1[2].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
             }
         }
 
@@ -330,11 +344,11 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Might")
             {
-                seedList2[0].GetComponent<SeedScript>().defenceVal += (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                defenceCount2 = defenceCount2 + (seedList2[0].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
             }
             else if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                seedList2[2].GetComponent<SeedScript>().defenceVal += (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                defenceCount2 = defenceCount2 + (seedList2[2].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
             }
         }
 
@@ -348,100 +362,301 @@ public class BattleManagerScript : MonoBehaviour {
     //Resolution phase
     private IEnumerator ResolutionPhase1()
     {
-        //Generate P1 Shield
-        player1Defence.CurrentVal = defenceCount1;
-        infoPane.text = "Player 1 gains " + (defenceCount1) + " defence points";
-        yield return new WaitForSeconds(2f);
 
-        //Generate P2 Shield
-        player2Defence.CurrentVal = defenceCount2;
-        infoPane.text = "Player 2 gains " + (defenceCount2) + " defence points";
-        yield return new WaitForSeconds(2f);
-
-        //Deal P1 damage
-        infoPane.text = "Player 1 deals " + (damageCount1) + " damage!";
-        if ((player2Defence.CurrentVal > 0) && (damageCount1 > 0))
+        // Iterate through P1 Seeds: Supp and Def
+        for (int t = 0; t < seedList1.Length; t++)
         {
-            player2Defence.CurrentVal = player2Defence.CurrentVal - damageCount1;
-            yield return new WaitForSeconds(1f);
-        }
-        player2Health.CurrentVal = player2Health.CurrentVal - Mathf.Clamp(damageCount1 - defenceCount2, 0, int.MaxValue);
-        yield return new WaitForSeconds(2f);
-        //Check for magic support seed
-        if (magicSupport2 == true)
-        {
-            infoPane.text = "Player 2's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " TRUE damage!";
-            player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
-            yield return new WaitForSeconds(2f);
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
+            {
+                //support things
+            }
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
+            {
+                //Add Def to Shield
+                player1Defence.CurrentVal = player1Defence.CurrentVal + seedList1[t].GetComponent<SeedScript>().defenceVal;
+                //Display Info
+                infoPane.text = "Player 1 gains " + (seedList1[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+                //Play Animation
+                //***ANIMANIMANIM***
+                yield return new WaitForSeconds(2f);
+            }
         }
 
-        //Deal P2 damage
-        infoPane.text = "Player 2 deals " + (damageCount2) + " damage!";
-        if ((player1Defence.CurrentVal > 0) && (damageCount2 > 0))
+        // Iterate through P2 Seeds: Supp and Def
+        for (int t = 0; t < seedList2.Length; t++)
         {
-            player1Defence.CurrentVal = player1Defence.CurrentVal - damageCount2;
-            yield return new WaitForSeconds(1f);
+            if (seedList2[t].GetComponent<SeedScript>().attackMode == "Support")
+            {
+                //support things
+            }
+            if (seedList2[t].GetComponent<SeedScript>().attackMode == "Defend")
+            {
+                //Add Def to Shield
+                player2Defence.CurrentVal = player2Defence.CurrentVal + seedList2[t].GetComponent<SeedScript>().defenceVal;
+                //Display Info
+                infoPane.text = "Player 2 gains " + (seedList2[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+                //Play Animation
+                //***ANIMANIMANIM***
+                yield return new WaitForSeconds(2f);
+            }
         }
-        player1Health.CurrentVal = player1Health.CurrentVal - Mathf.Clamp(damageCount2 - defenceCount1, 0, int.MaxValue);
-        yield return new WaitForSeconds(2f);
-        //Check for magic support seed
-        if (magicSupport1 == true)
+
+        // Iterate through P1 Attack Seeds
+        for (int t = 0; t < seedList1.Length; t++)
         {
-            player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
-            infoPane.text = "Player 1's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " TRUE damage!";
-            yield return new WaitForSeconds(2f);
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
+            {
+                //Deal damage to Shield first
+                if (player2Defence.CurrentVal > 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    seedList1[t].GetComponent<Animator>().Play("Might_1_ATK", -1, 0.0f);
+
+                    //Deal Shield damage
+                    if (player2Defence.CurrentVal >= seedList1[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
+                    }
+
+                    // Or, Deal Shield damage + HP damage 
+                    else if (player2Defence.CurrentVal < seedList1[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        //store the remainder
+                        int remainder = (int)(seedList1[t].GetComponent<SeedScript>().attackVal - player2Defence.CurrentVal);
+                        //Deal Shield damage
+                        player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
+                        yield return new WaitForSeconds(1f);
+
+                        //Deal remaining HP damage
+                        player2Health.CurrentVal = player2Health.CurrentVal - (remainder);
+                    }
+
+                    yield return new WaitForSeconds(2f);
+
+                }
+
+                //Deal straight to HP pool
+                else if (player2Defence.CurrentVal <= 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //***ANIMANIMANIM***
+
+                    //Deal damage
+                    player2Health.CurrentVal = player2Health.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
+                    yield return new WaitForSeconds(2f);
+                }
+            }
+        }
+
+        // Iterate through P2 Attack Seeds
+        for (int t = 0; t < seedList2.Length; t++)
+        {
+            if (seedList2[t].GetComponent<SeedScript>().attackMode == "Attack")
+            {
+                //Deal damage to Shield first
+                if (player1Defence.CurrentVal > 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //***ANIMANIMANIM***
+
+                    //Deal Shield damage
+                    if (player1Defence.CurrentVal >= seedList2[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        player1Defence.CurrentVal = player1Defence.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
+                    }
+
+                    // Or, Deal Shield damage + HP damage 
+                    else if (player1Defence.CurrentVal < seedList2[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        //store the remainder
+                        int remainder = (int)(seedList2[t].GetComponent<SeedScript>().attackVal - player1Defence.CurrentVal);
+                        //Deal Shield damage
+                        player1Defence.CurrentVal = player1Defence.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
+                        yield return new WaitForSeconds(1f);
+
+                        //Deal remaining HP damage
+                        player1Health.CurrentVal = player1Health.CurrentVal - (remainder);
+                    }
+
+                    yield return new WaitForSeconds(2f);
+                }
+
+                //Deal straight to HP pool
+                else if (player1Defence.CurrentVal <= 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //***ANIMANIMANIM***
+
+                    //Deal damage
+                    player1Health.CurrentVal = player1Health.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
+
+                    yield return new WaitForSeconds(2f);
+                }
+            }
         }
 
         ResetDamageCounters();
-}
+    }
 
     private IEnumerator ResolutionPhase2()
     {
-        //Generate P2 Shield
-        player2Defence.CurrentVal = defenceCount2;
-        infoPane.text = "Player 2 gains " + (defenceCount2) + " defence points";
-        yield return new WaitForSeconds(2f);
-
-        //Generate P1 Shield
-        player1Defence.CurrentVal = defenceCount1;
-        infoPane.text = "Player 1 gains " + (defenceCount1) + " defence points";
-        yield return new WaitForSeconds(2f);
-
-        //Deal P2 damage
-        infoPane.text = "Player 2 deals " + (damageCount2) + " damage!";
-        if ((player1Defence.CurrentVal > 0) && (damageCount2 > 0))
+        // Iterate through P2 Seeds: Supp and Def
+        for (int t = 0; t < seedList2.Length; t++)
         {
-            player1Defence.CurrentVal = player1Defence.CurrentVal - damageCount2;
-            yield return new WaitForSeconds(1f);
-        }
-        player1Health.CurrentVal = player1Health.CurrentVal - Mathf.Clamp(damageCount2 - defenceCount1, 0, int.MaxValue);
-        yield return new WaitForSeconds(2f);
-        //Check for magic support seed
-        if (magicSupport1 == true)
-        {
-            infoPane.text = "Player 1's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " TRUE damage!";
-            player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
-            yield return new WaitForSeconds(2f);
+            if (seedList2[t].GetComponent<SeedScript>().attackMode == "Support")
+            {
+                //support things
+            }
+            if (seedList2[t].GetComponent<SeedScript>().attackMode == "Defend")
+            {
+                //Add Def to Shield
+                player2Defence.CurrentVal = player2Defence.CurrentVal + seedList2[t].GetComponent<SeedScript>().defenceVal;
+                //Display Info
+                infoPane.text = "Player 2 gains " + (seedList2[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+                //Play Animation
+                //***ANIMANIMANIM***
+                yield return new WaitForSeconds(2f);
+            }
         }
 
-        //Deal P1 damage
-        infoPane.text = "Player 1 deals " + (damageCount1) + " damage!";
-        if ((player2Defence.CurrentVal > 0) && (damageCount1 > 0))
+        // Iterate through P1 Seeds: Supp and Def
+        for (int t = 0; t < seedList1.Length; t++)
         {
-            player2Defence.CurrentVal = player2Defence.CurrentVal - damageCount1;
-            yield return new WaitForSeconds(1f);
-        }
-        player2Health.CurrentVal = player2Health.CurrentVal - Mathf.Clamp(damageCount1 - defenceCount2, 0, int.MaxValue);
-        yield return new WaitForSeconds(2f);
-        //Check for magic support seed
-        if (magicSupport2 == true)
-        {
-            player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
-            infoPane.text = "Player 2's MAGIC support Seed returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " TRUE damage!";
-            yield return new WaitForSeconds(2f);
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
+            {
+                //support things
+            }
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
+            {
+                //Add Def to Shield
+                player1Defence.CurrentVal = player1Defence.CurrentVal + seedList1[t].GetComponent<SeedScript>().defenceVal;
+                //Display Info
+                infoPane.text = "Player 1 gains " + (seedList1[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+                //Play Animation
+                //***ANIMANIMANIM***
+                yield return new WaitForSeconds(2f);
+            }
         }
 
-        ResetDamageCounters();
+        // Iterate through P2 Attack Seeds
+        for (int t = 0; t < seedList2.Length; t++)
+        {
+            if (seedList2[t].GetComponent<SeedScript>().attackMode == "Attack")
+            {
+                //Deal damage to Shield first
+                if (player1Defence.CurrentVal > 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //seedList2[t].GetComponent<Animator>().Play();
+
+                    //Deal Shield damage
+                    if (player1Defence.CurrentVal >= seedList2[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        player1Defence.CurrentVal = player1Defence.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
+                    }
+
+                    // Or, Deal Shield damage + HP damage 
+                    else if (player1Defence.CurrentVal < seedList2[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        //store the remainder
+                        int remainder = (int)(seedList2[t].GetComponent<SeedScript>().attackVal - player1Defence.CurrentVal);
+                        //Deal Shield damage
+                        player1Defence.CurrentVal = player1Defence.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
+                        yield return new WaitForSeconds(1f);
+
+                        //Deal remaining HP damage
+                        player1Health.CurrentVal = player1Health.CurrentVal - (remainder);
+                    }
+
+                    yield return new WaitForSeconds(2f);
+
+                }
+
+                //Deal straight to HP pool
+                else if (player1Defence.CurrentVal <= 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //***ANIMANIMANIM***
+
+                    //Deal damage
+                    player1Health.CurrentVal = player1Health.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
+                    yield return new WaitForSeconds(2f);
+                }
+            }
+        }
+
+        // Iterate through P1 Attack Seeds
+        for (int t = 0; t < seedList1.Length; t++)
+        {
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
+            {
+                //Deal damage to Shield first
+                if (player2Defence.CurrentVal > 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //***ANIMANIMANIM***
+
+                    //Deal Shield damage
+                    if (player2Defence.CurrentVal >= seedList1[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
+                    }
+
+                    // Or, Deal Shield damage + HP damage 
+                    else if (player2Defence.CurrentVal < seedList1[t].GetComponent<SeedScript>().attackVal)
+                    {
+                        //store the remainder
+                        int remainder = (int)(seedList1[t].GetComponent<SeedScript>().attackVal - player2Defence.CurrentVal);
+                        //Deal Shield damage
+                        player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
+                        yield return new WaitForSeconds(1f);
+
+                        //Deal remaining HP damage
+                        player2Health.CurrentVal = player2Health.CurrentVal - (remainder);
+                    }
+
+                    yield return new WaitForSeconds(2f);
+                }
+
+                //Deal straight to HP pool
+                else if (player2Defence.CurrentVal <= 0)
+                {
+                    //Display Info
+                    infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
+
+                    //Play Animation
+                    //***ANIMANIMANIM***
+
+                    //Deal damage
+                    player2Health.CurrentVal = player2Health.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
+
+                    yield return new WaitForSeconds(2f);
+                }
+            }
+
+            ResetDamageCounters();
+        }
     }
 
     private void ResetDamageCounters()
@@ -463,6 +678,7 @@ public class BattleManagerScript : MonoBehaviour {
         Player1DEF.text = "0";
         Player2ATK.text = "0";
         Player2DEF.text = "0";
+
     }
 
     //Combat Manager

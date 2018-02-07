@@ -571,6 +571,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &144462041
@@ -650,15 +661,15 @@ RectTransform:
   m_GameObject: {fileID: 149249045}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5490237, y: 0.5490237, z: 0.5490237}
+  m_LocalScale: {x: 0.5490237, y: 0.54902375, z: 0.54902375}
   m_Children:
   - {fileID: 2123576469}
-  m_Father: {fileID: 1862596880}
-  m_RootOrder: 7
+  m_Father: {fileID: 1383118643}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 189, y: -103}
+  m_AnchoredPosition: {x: 189, y: -103.49998}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &149249047
@@ -717,17 +728,17 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 149737659}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5490237, y: 0.5490237, z: 0.5490237}
+  m_LocalScale: {x: 0.5490237, y: 0.54902375, z: 0.54902375}
   m_Children:
   - {fileID: 1099631849}
-  m_Father: {fileID: 1862596880}
-  m_RootOrder: 6
+  m_Father: {fileID: 1383118643}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240, y: -100}
+  m_AnchoredPosition: {x: -240, y: -100.49998}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &149737661
@@ -911,6 +922,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 777335586}
         m_MethodName: SupportButton2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1414,12 +1436,12 @@ RectTransform:
   - {fileID: 1543785935}
   - {fileID: 45833650}
   - {fileID: 1349603295}
-  m_Father: {fileID: 1862596880}
-  m_RootOrder: 5
+  m_Father: {fileID: 1383118643}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -40}
+  m_AnchoredPosition: {x: 2.1529445e-12, y: -40.499977}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &369977599
@@ -1542,6 +1564,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &371771309
@@ -1637,7 +1670,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.48442906, g: 0.8235294, b: 0.48676768, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 0.37254903}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1656,6 +1689,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 372253094}
         m_MethodName: AttackType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1708,7 +1752,7 @@ RectTransform:
   m_GameObject: {fileID: 372253093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728778, y: 1.672877, z: 1.672877}
+  m_LocalScale: {x: 1.4434464, y: 1.4434451, z: 1.4434451}
   m_Children:
   - {fileID: 310123717}
   - {fileID: 555707565}
@@ -1717,7 +1761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 250.92647, y: -584.9761}
+  m_AnchoredPosition: {x: 269, y: -601.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &391159827
@@ -1848,6 +1892,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1597611007}
         m_MethodName: SupportButton2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2570,6 +2625,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &613470849
@@ -2696,7 +2762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18.885, y: -0.92714}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &658403294
@@ -2726,6 +2792,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51e05c19389ecc46896e70a4331de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedList1:
+  - {fileID: 777335587}
+  - {fileID: 1540634410}
+  - {fileID: 781584266}
+  seedList2:
+  - {fileID: 1343282225}
+  - {fileID: 1597611008}
+  - {fileID: 372253095}
+  infoPane: {fileID: 729683305}
+  Player1ATK: {fileID: 1435214633}
+  Player1DEF: {fileID: 975759623}
+  Player2ATK: {fileID: 1099631850}
+  Player2DEF: {fileID: 2123576470}
+  player1Face: {fileID: 350542767}
+  player2Face: {fileID: 1561660857}
+  faceAnimations:
+  - {fileID: 21300000, guid: 35568b86f8f119d44a6e27cdf619ddf8, type: 3}
+  - {fileID: 21300000, guid: e993a4f85e8160b4bbf429ff155ea1b5, type: 3}
+  timeRemaining: 0
+  timerDuration: 15
+  timerText: {fileID: 1453813679}
+  isCountingDown: 0
   player1Health:
     bar: {fileID: 1608712237}
     maxVal: 0
@@ -2742,24 +2830,7 @@ MonoBehaviour:
     bar: {fileID: 965302307}
     maxVal: 0
     currentVal: 0
-  seedList1:
-  - {fileID: 777335587}
-  - {fileID: 1540634410}
-  - {fileID: 781584266}
-  seedList2:
-  - {fileID: 1343282225}
-  - {fileID: 1597611008}
-  - {fileID: 372253095}
   GameOverPopUpRef: {fileID: 1669726847}
-  infoPane: {fileID: 729683305}
-  Player1ATK: {fileID: 1435214633}
-  Player1DEF: {fileID: 975759623}
-  Player2ATK: {fileID: 1099631850}
-  Player2DEF: {fileID: 2123576470}
-  timerText: {fileID: 1453813679}
-  timeRemaining: 0
-  timerDuration: 15
-  isCountingDown: 0
 --- !u!4 &658403296
 Transform:
   m_ObjectHideFlags: 0
@@ -3057,7 +3128,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 1's Action
+  m_Text: XYZ
 --- !u!222 &729683306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3103,7 +3174,7 @@ RectTransform:
   m_GameObject: {fileID: 743901554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6817157, y: 0.6817157, z: 0.6817157}
   m_Children:
   - {fileID: 1243478960}
   - {fileID: 1453813678}
@@ -3112,7 +3183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.9, y: 7.2}
+  m_AnchoredPosition: {x: -161.84216, y: 0}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &743901556
@@ -3160,6 +3231,7 @@ GameObject:
   - component: {fileID: 777335588}
   - component: {fileID: 777335587}
   - component: {fileID: 777335586}
+  - component: {fileID: 777335590}
   m_Layer: 5
   m_Name: Might_1
   m_TagString: Untagged
@@ -3175,7 +3247,7 @@ RectTransform:
   m_GameObject: {fileID: 777335584}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728647, y: 1.6728638, z: 1.6728638}
+  m_LocalScale: {x: 1.4434351, y: 1.4434338, z: 1.4434338}
   m_Children:
   - {fileID: 1673648620}
   - {fileID: 613470851}
@@ -3187,7 +3259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -250.9, y: 397}
+  m_AnchoredPosition: {x: -269, y: 432}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &777335586
@@ -3231,7 +3303,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5803922, g: 0.4901961, b: 0.4784314, a: 0.372}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3243,13 +3315,24 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 777335588}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 777335586}
         m_MethodName: AttackType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3294,6 +3377,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 777335584}
+--- !u!95 &777335590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 777335584}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45e73a7c5788b4c458d38e0603174452, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &781584263
 GameObject:
   m_ObjectHideFlags: 0
@@ -3306,6 +3406,7 @@ GameObject:
   - component: {fileID: 781584267}
   - component: {fileID: 781584266}
   - component: {fileID: 781584265}
+  - component: {fileID: 781584269}
   m_Layer: 5
   m_Name: Magic_1
   m_TagString: Untagged
@@ -3321,7 +3422,7 @@ RectTransform:
   m_GameObject: {fileID: 781584263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728778, y: 1.672877, z: 1.672877}
+  m_LocalScale: {x: 1.4434464, y: 1.4434451, z: 1.4434451}
   m_Children:
   - {fileID: 284483807}
   - {fileID: 2049441667}
@@ -3330,7 +3431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 250.96, y: 397.00003}
+  m_AnchoredPosition: {x: 269, y: 432}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &781584265
@@ -3374,7 +3475,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5803922, g: 0.4901961, b: 0.4784314, a: 0.372}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -3386,13 +3487,24 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 781584267}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 781584265}
         m_MethodName: AttackType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3437,6 +3549,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781584263}
+--- !u!95 &781584269
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 781584263}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 39a0563c2c3f2514487c1771c955b5f3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &803099721
 GameObject:
   m_ObjectHideFlags: 0
@@ -3642,7 +3771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.513, g: 0.64061564, b: 0.86764705, a: 1}
+  m_Color: {r: 0.6156863, g: 0.7176471, b: 0.7411765, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3796,6 +3925,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1597611007}
         m_MethodName: SupportButton1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4139,7 +4279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5657439, g: 0.6505675, b: 0.8014706, a: 1}
+  m_Color: {r: 0.6156863, g: 0.7176471, b: 0.7411765, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4735,7 +4875,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.48442906, g: 0.8235294, b: 0.48676768, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 0.37254903}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4754,6 +4894,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1343282224}
         m_MethodName: AttackType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4806,7 +4957,7 @@ RectTransform:
   m_GameObject: {fileID: 1343282223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728647, y: 1.6728638, z: 1.6728638}
+  m_LocalScale: {x: 1.4434351, y: 1.4434338, z: 1.4434338}
   m_Children:
   - {fileID: 1995523958}
   - {fileID: 1577170085}
@@ -4818,7 +4969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -250.93353, y: -584.9761}
+  m_AnchoredPosition: {x: -269.00003, y: -601.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1349603294
@@ -4938,6 +5089,10 @@ RectTransform:
   - {fileID: 1022873888}
   - {fileID: 508572469}
   - {fileID: 1561660858}
+  - {fileID: 369977598}
+  - {fileID: 149737660}
+  - {fileID: 149249046}
+  - {fileID: 1571983349}
   m_Father: {fileID: 1862596880}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5322,6 +5477,7 @@ GameObject:
   - component: {fileID: 1540634411}
   - component: {fileID: 1540634410}
   - component: {fileID: 1540634409}
+  - component: {fileID: 1540634413}
   m_Layer: 5
   m_Name: Mind_1
   m_TagString: Untagged
@@ -5337,7 +5493,7 @@ RectTransform:
   m_GameObject: {fileID: 1540634407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728778, y: 1.672877, z: 1.672877}
+  m_LocalScale: {x: 1.4434464, y: 1.4434451, z: 1.4434451}
   m_Children:
   - {fileID: 194098281}
   - {fileID: 144462043}
@@ -5349,7 +5505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.033502, y: 397.00003}
+  m_AnchoredPosition: {x: 0, y: 432.26}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1540634409
@@ -5393,7 +5549,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5803922, g: 0.4901961, b: 0.4784314, a: 0.372}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -5405,13 +5561,24 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1540634411}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1540634409}
         m_MethodName: AttackType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5456,6 +5623,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1540634407}
+--- !u!95 &1540634413
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540634407}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 189df49c61db98846abbd7e992b1256e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1543785934
 GameObject:
   m_ObjectHideFlags: 0
@@ -5518,7 +5702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.65981835, g: 0.8308824, b: 0.6609981, a: 1}
+  m_Color: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5633,15 +5817,15 @@ RectTransform:
   m_GameObject: {fileID: 1571983348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728647, y: 1.6728638, z: 1.6728638}
+  m_LocalScale: {x: 1.6728647, y: 1.6728642, z: 1.6728642}
   m_Children:
   - {fileID: 1845175447}
-  m_Father: {fileID: 1862596880}
-  m_RootOrder: 4
+  m_Father: {fileID: 1383118643}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.28647107, y: -107.66988}
+  m_AnchoredPosition: {x: -0.28647104, y: -108.16986}
   m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1571983350
@@ -5797,6 +5981,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1577170083
@@ -5911,7 +6106,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.48442906, g: 0.8235294, b: 0.48676768, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 0.37254903}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -5930,6 +6125,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1597611007}
         m_MethodName: AttackType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5982,7 +6188,7 @@ RectTransform:
   m_GameObject: {fileID: 1597611006}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6728778, y: 1.672877, z: 1.672877}
+  m_LocalScale: {x: 1.4434464, y: 1.4434451, z: 1.4434451}
   m_Children:
   - {fileID: 295827010}
   - {fileID: 983733170}
@@ -5994,7 +6200,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000000028169103, y: -584.9761}
+  m_AnchoredPosition: {x: 0, y: -601.54}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1602479225
@@ -6121,7 +6327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5955882, g: 0.2977941, b: 0.2977941, a: 1}
+  m_Color: {r: 0.5803922, g: 0.4901961, b: 0.4784314, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6490,10 +6696,6 @@ RectTransform:
   - {fileID: 1343282228}
   - {fileID: 1597611011}
   - {fileID: 372253098}
-  - {fileID: 1571983349}
-  - {fileID: 369977598}
-  - {fileID: 149737660}
-  - {fileID: 149249046}
   m_Father: {fileID: 2110026033}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6561,6 +6763,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1343282224}
         m_MethodName: SupportButton2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 658403295}
+        m_MethodName: ReactionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
