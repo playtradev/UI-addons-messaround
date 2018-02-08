@@ -208,18 +208,20 @@ public class BattleManagerScript : MonoBehaviour {
         //Then Iterate through Player 1's seeds and add up damage/defence
         for (int t = 0; t < seedList1.Length; t++)
         {
-            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
             {
-                SupportActions1(t);
+                damageCount1 = damageCount1 + seedList1[t].GetComponent<SeedScript>().attackVal;
             }
+
             else if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
                 defenceCount1 = defenceCount1 + seedList1[t].GetComponent<SeedScript>().defenceVal;
             }
-            else if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
+            else if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
-                damageCount1 = damageCount1 + seedList1[t].GetComponent<SeedScript>().attackVal;
+                SupportActions1(t);
             }
+
         }
 
         //Update UI
@@ -256,6 +258,12 @@ public class BattleManagerScript : MonoBehaviour {
         damageCount2 = 0;
         defenceCount2 = 0;
         magicSupport2 = false;
+        //Including resetting each seed!
+        for (int t = 0; t < seedList2.Length; t++)
+        {
+            seedList2[t].GetComponent<SeedScript>().ResetSeedStats();
+            seedList2[t].GetComponent<SeedScript>().SetStatsText();
+        }
 
         //Iterate through Player 2's seeds and add up damage/defence
         for (int t = 0; t < seedList2.Length; t++)
@@ -273,6 +281,8 @@ public class BattleManagerScript : MonoBehaviour {
                 SupportActions2(t);
             }
         }
+
+        //Update UI
         Player2ATK.text = "" + damageCount2;
         Player2DEF.text = "" + defenceCount2;
     }
@@ -344,11 +354,13 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Mind")
             {
-                damageCount2 = Mathf.CeilToInt(damageCount2 + (seedList2[1].GetComponent<SeedScript>().attackVal / 2));
+                seedList2[1].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList2[1].GetComponent<SeedScript>().attackVal + (seedList2[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList2[1].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                damageCount2 = Mathf.CeilToInt(damageCount2 + (seedList2[2].GetComponent<SeedScript>().attackVal / 2));
+                seedList2[2].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[2].GetComponent<SeedScript>().attackVal + (seedList2[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList2[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
 
@@ -357,11 +369,13 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Might")
             {
-                defenceCount2 = defenceCount2 + (seedList2[0].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                seedList2[0].GetComponent<SeedScript>().defenceVal = seedList2[0].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                seedList2[0].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                defenceCount2 = defenceCount2 + (seedList2[2].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                seedList2[2].GetComponent<SeedScript>().defenceVal = seedList2[2].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                seedList2[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
 
@@ -381,18 +395,22 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
-                //support things
-                //just needs to play animation? everything else is sorted by other things...
+                seedList1[t].GetComponent<SeedScript>().SupportAnim(t);
+
+                yield return new WaitForSeconds(1f);
             }
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
                 //Add Def to Shield
                 player1Defence.CurrentVal = player1Defence.CurrentVal + seedList1[t].GetComponent<SeedScript>().defenceVal;
+
                 //Display Info
                 infoPane.text = "Player 1 gains " + (seedList1[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+
                 //Play Animation
-                //***ANIMANIMANIM***
-                yield return new WaitForSeconds(2f);
+                seedList1[t].GetComponent<SeedScript>().DefenceAnim(t);
+
+                yield return new WaitForSeconds(1f);
             }
         }
 
@@ -402,16 +420,20 @@ public class BattleManagerScript : MonoBehaviour {
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Support")
             {
                 //support things
+                seedList2[t].GetComponent<SeedScript>().SupportAnim(t);
             }
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
                 //Add Def to Shield
                 player2Defence.CurrentVal = player2Defence.CurrentVal + seedList2[t].GetComponent<SeedScript>().defenceVal;
+
                 //Display Info
                 infoPane.text = "Player 2 gains " + (seedList2[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+
                 //Play Animation
-                //***ANIMANIMANIM***
-                yield return new WaitForSeconds(2f);
+                seedList2[t].GetComponent<SeedScript>().DefenceAnim(t);
+
+                yield return new WaitForSeconds(1f);
             }
         }
 
@@ -425,17 +447,17 @@ public class BattleManagerScript : MonoBehaviour {
                 {
                     //Display Info
                     infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
-
                     //Play Animation
-                    seedList1[t].GetComponent<Animator>().Play("ATK", -1, 0.0f);
+                    seedList1[t].GetComponent<SeedScript>().AttackAnim(t);
 
-                    //Deal Shield damage
+
+                    //Deal Shield damage...
                     if (player2Defence.CurrentVal >= seedList1[t].GetComponent<SeedScript>().attackVal)
                     {
                         player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
                     }
 
-                    // Or, Deal Shield damage + HP damage 
+                    //...Or, Deal Shield damage + HP damage 
                     else if (player2Defence.CurrentVal < seedList1[t].GetComponent<SeedScript>().attackVal)
                     {
                         //store the remainder
@@ -443,12 +465,11 @@ public class BattleManagerScript : MonoBehaviour {
                         //Deal Shield damage
                         player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
                         yield return new WaitForSeconds(1f);
-
                         //Deal remaining HP damage
                         player2Health.CurrentVal = player2Health.CurrentVal - (remainder);
                     }
 
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
 
                 }
 
@@ -459,11 +480,11 @@ public class BattleManagerScript : MonoBehaviour {
                     infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
 
                     //Play Animation
-                    //***ANIMANIMANIM***
+                    seedList1[t].GetComponent<SeedScript>().AttackAnim(t);
 
                     //Deal damage
                     player2Health.CurrentVal = player2Health.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
                 }
             }
         }
@@ -480,7 +501,7 @@ public class BattleManagerScript : MonoBehaviour {
                     infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
 
                     //Play Animation
-                    //***ANIMANIMANIM***
+                    seedList2[t].GetComponent<SeedScript>().AttackAnim(t);
 
                     //Deal Shield damage
                     if (player1Defence.CurrentVal >= seedList2[t].GetComponent<SeedScript>().attackVal)
@@ -511,7 +532,7 @@ public class BattleManagerScript : MonoBehaviour {
                     infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
 
                     //Play Animation
-                    //***ANIMANIMANIM***
+                    seedList2[t].GetComponent<SeedScript>().AttackAnim(t);
 
                     //Deal damage
                     player1Health.CurrentVal = player1Health.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
@@ -531,17 +552,23 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Support")
             {
-                //support things
+                seedList1[t].GetComponent<SeedScript>().SupportAnim(t);
+
+                yield return new WaitForSeconds(1f);
             }
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
                 //Add Def to Shield
                 player2Defence.CurrentVal = player2Defence.CurrentVal + seedList2[t].GetComponent<SeedScript>().defenceVal;
+
                 //Display Info
                 infoPane.text = "Player 2 gains " + (seedList2[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+
                 //Play Animation
-                //***ANIMANIMANIM***
-                yield return new WaitForSeconds(2f);
+                seedList1[t].GetComponent<SeedScript>().DefenceAnim(t);
+
+                yield return new WaitForSeconds(1f);
+
             }
         }
 
@@ -550,17 +577,20 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
-                //support things
+                seedList1[t].GetComponent<SeedScript>().SupportAnim(t);
             }
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
                 //Add Def to Shield
                 player1Defence.CurrentVal = player1Defence.CurrentVal + seedList1[t].GetComponent<SeedScript>().defenceVal;
+
                 //Display Info
                 infoPane.text = "Player 1 gains " + (seedList1[t].GetComponent<SeedScript>().defenceVal) + " defence points";
+
                 //Play Animation
-                //***ANIMANIMANIM***
-                yield return new WaitForSeconds(2f);
+                seedList1[t].GetComponent<SeedScript>().DefenceAnim(t);
+
+                yield return new WaitForSeconds(1f);
             }
         }
 
@@ -574,9 +604,8 @@ public class BattleManagerScript : MonoBehaviour {
                 {
                     //Display Info
                     infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
-
                     //Play Animation
-                    //seedList2[t].GetComponent<Animator>().Play();
+                    seedList2[t].GetComponent<SeedScript>().AttackAnim(t);
 
                     //Deal Shield damage
                     if (player1Defence.CurrentVal >= seedList2[t].GetComponent<SeedScript>().attackVal)
@@ -597,7 +626,7 @@ public class BattleManagerScript : MonoBehaviour {
                         player1Health.CurrentVal = player1Health.CurrentVal - (remainder);
                     }
 
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
 
                 }
 
@@ -608,11 +637,11 @@ public class BattleManagerScript : MonoBehaviour {
                     infoPane.text = "Player 2 deals " + (seedList2[t].GetComponent<SeedScript>().attackVal) + " damage!";
 
                     //Play Animation
-                    //***ANIMANIMANIM***
+                    seedList2[t].GetComponent<SeedScript>().AttackAnim(t);
 
                     //Deal damage
                     player1Health.CurrentVal = player1Health.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
                 }
             }
         }
@@ -627,17 +656,16 @@ public class BattleManagerScript : MonoBehaviour {
                 {
                     //Display Info
                     infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
-
                     //Play Animation
-                    //***ANIMANIMANIM***
+                    seedList1[t].GetComponent<SeedScript>().AttackAnim(t);
 
-                    //Deal Shield damage
+                    //Deal Shield damage...
                     if (player2Defence.CurrentVal >= seedList1[t].GetComponent<SeedScript>().attackVal)
                     {
                         player2Defence.CurrentVal = player2Defence.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
                     }
 
-                    // Or, Deal Shield damage + HP damage 
+                    //...Or, Deal Shield damage + HP damage 
                     else if (player2Defence.CurrentVal < seedList1[t].GetComponent<SeedScript>().attackVal)
                     {
                         //store the remainder
@@ -650,7 +678,7 @@ public class BattleManagerScript : MonoBehaviour {
                         player2Health.CurrentVal = player2Health.CurrentVal - (remainder);
                     }
 
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
                 }
 
                 //Deal straight to HP pool
@@ -660,12 +688,12 @@ public class BattleManagerScript : MonoBehaviour {
                     infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
 
                     //Play Animation
-                    //***ANIMANIMANIM***
+                    seedList1[t].GetComponent<SeedScript>().AttackAnim(t);
 
                     //Deal damage
                     player2Health.CurrentVal = player2Health.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
 
-                    yield return new WaitForSeconds(2f);
+                    yield return new WaitForSeconds(1f);
                 }
             }
 

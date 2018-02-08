@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SeedScript : MonoBehaviour {
+public class SeedScript : MonoBehaviour
+{
 
     [Header("Public buttons and text")]
     public Button thisSeed;
@@ -25,11 +26,10 @@ public class SeedScript : MonoBehaviour {
     [SerializeField]
     private int defaultDefenceVal;
 
-
     int t = 0;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         //Set default Values
         defaultAttackVal = attackVal;
@@ -58,7 +58,7 @@ public class SeedScript : MonoBehaviour {
     {
 
         t = (t + 1) % 3;
-    
+
         thisSeed.transform.Find("AttackType").GetComponentInChildren<Text>().text = seedPosition[t];
 
         attackMode = seedPosition[t];
@@ -93,4 +93,51 @@ public class SeedScript : MonoBehaviour {
         supportText.text = support2.GetComponentInChildren<Text>().text;
     }
 
+    public void AttackAnim(int a)
+    {
+        if (a == 0)
+        {
+            thisSeed.GetComponent<Animator>().Play("Might_ATK", -1, 0.0f);
+        }
+        if (a == 1)
+        {
+            thisSeed.GetComponent<Animator>().Play("Mind_ATK", -1, 0.0f);
+        }
+        if (a == 2)
+        {
+            thisSeed.GetComponent<Animator>().Play("Magic_ATK", -1, 0.0f);
+        }
+    }
+
+    public void DefenceAnim(int a)
+    {
+        if (a == 0)
+        {
+            thisSeed.GetComponent<Animator>().Play("Might_DEF", -1, 0.0f);
+        }
+        if (a == 1)
+        {
+            thisSeed.GetComponent<Animator>().Play("Mind_DEF", -1, 0.0f);
+        }
+        if (a == 2)
+        {
+            thisSeed.GetComponent<Animator>().Play("Magic_DEF", -1, 0.0f);
+        }
+    }
+
+    public void SupportAnim(int a)
+    {
+        if (a == 0)
+        {
+            thisSeed.GetComponent<Animator>().Play("Might_SUPP", -1, 0.0f);
+        }
+        if (a == 1)
+        {
+            thisSeed.GetComponent<Animator>().Play("Mind_SUPP", -1, 0.0f);
+        }
+        if (a == 2)
+        {
+            thisSeed.GetComponent<Animator>().Play("Magic_SUPP", -1, 0.0f);
+        }
+    }
 }
