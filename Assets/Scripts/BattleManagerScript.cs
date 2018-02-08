@@ -194,27 +194,36 @@ public class BattleManagerScript : MonoBehaviour {
     //Action + Reaction Phases
     public void ActionPhase()
     {
+        //First, reset all stats so it re-calculates on each press
         damageCount1 = 0;
         defenceCount1 = 0;
         magicSupport1 = false;
-
-        //Iterate through Player 1's seeds and add up damage/defence
+        //Including resetting each seed!
         for (int t = 0; t < seedList1.Length; t++)
         {
-            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
+            seedList1[t].GetComponent<SeedScript>().ResetSeedStats();
+            seedList1[t].GetComponent<SeedScript>().SetStatsText();
+        }
+
+        //Then Iterate through Player 1's seeds and add up damage/defence
+        for (int t = 0; t < seedList1.Length; t++)
+        {
+            if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
-                damageCount1 = damageCount1 + seedList1[t].GetComponent<SeedScript>().attackVal;
+                SupportActions1(t);
             }
             else if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
                 defenceCount1 = defenceCount1 + seedList1[t].GetComponent<SeedScript>().defenceVal;
             }
-            else if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
+            else if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
             {
-                SupportActions1(t);
+                damageCount1 = damageCount1 + seedList1[t].GetComponent<SeedScript>().attackVal;
             }
         }
 
+        //Update UI
+        //seedList1[t].GetComponent<SeedScript>().SetStatsText();
         Player1ATK.text = "" + damageCount1;
         Player1DEF.text = "" + defenceCount1;
     }
@@ -296,11 +305,13 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Mind")
             {
-                damageCount1 = Mathf.CeilToInt(damageCount1 + (seedList1[1].GetComponent<SeedScript>().attackVal / 2));
+                seedList1[1].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[1].GetComponent<SeedScript>().attackVal + (seedList1[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList1[1].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                damageCount1 = Mathf.CeilToInt(damageCount1 + (seedList1[2].GetComponent<SeedScript>().attackVal / 2));
+                seedList1[2].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[2].GetComponent<SeedScript>().attackVal + (seedList1[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList1[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
 
@@ -309,11 +320,13 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Might")
             {
-                defenceCount1 = defenceCount1 + (seedList1[0].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                seedList1[0].GetComponent<SeedScript>().defenceVal = seedList1[0].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                seedList1[0].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                defenceCount1 = defenceCount1 + (seedList1[2].GetComponent<SeedScript>().defenceVal) + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                seedList1[2].GetComponent<SeedScript>().defenceVal = seedList1[2].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                seedList1[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
 
@@ -369,6 +382,7 @@ public class BattleManagerScript : MonoBehaviour {
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
                 //support things
+                //just needs to play animation? everything else is sorted by other things...
             }
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
@@ -413,7 +427,7 @@ public class BattleManagerScript : MonoBehaviour {
                     infoPane.text = "Player 1 deals " + (seedList1[t].GetComponent<SeedScript>().attackVal) + " damage!";
 
                     //Play Animation
-                    seedList1[t].GetComponent<Animator>().Play("Might_1_ATK", -1, 0.0f);
+                    seedList1[t].GetComponent<Animator>().Play("ATK", -1, 0.0f);
 
                     //Deal Shield damage
                     if (player2Defence.CurrentVal >= seedList1[t].GetComponent<SeedScript>().attackVal)

@@ -12,6 +12,7 @@ public class SeedScript : MonoBehaviour {
     public Text supportText;
     public Text statsText;
 
+
     [Header("Seed Attack mode")]
     public string attackMode;
     private string[] seedPosition;
@@ -19,19 +20,38 @@ public class SeedScript : MonoBehaviour {
     [Header("Stats")]
     public int attackVal;
     public int defenceVal;
+    [SerializeField]
+    private int defaultAttackVal;
+    [SerializeField]
+    private int defaultDefenceVal;
+
 
     int t = 0;
 
     // Use this for initialization
     void Start ()
     {
-        statsText.text = "ATT: " + attackVal + " | DEF: " + defenceVal;
+        //Set default Values
+        defaultAttackVal = attackVal;
+        defaultDefenceVal = defenceVal;
 
         seedPosition = new string[] { "Attack", "Defend", "Support" };
 
         thisSeed.transform.Find("AttackType").GetComponentInChildren<Text>().text = seedPosition[t];
 
+        SetStatsText();
         AttackType();
+    }
+
+    public void ResetSeedStats()
+    {
+        attackVal = defaultAttackVal;
+        defenceVal = defaultDefenceVal;
+    }
+
+    public void SetStatsText()
+    {
+        statsText.text = "ATT: " + attackVal + " | DEF: " + defenceVal;
     }
 
     public void AttackType()
