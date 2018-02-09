@@ -1702,7 +1702,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 658403295}
-        m_MethodName: ReactionPhase
+        m_MethodName: P2ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2830,10 +2830,7 @@ MonoBehaviour:
   faceAnimations:
   - {fileID: 21300000, guid: 35568b86f8f119d44a6e27cdf619ddf8, type: 3}
   - {fileID: 21300000, guid: e993a4f85e8160b4bbf429ff155ea1b5, type: 3}
-  timeRemaining: 0
-  timerDuration: 15
-  timerText: {fileID: 1453813679}
-  isCountingDown: 0
+  timerScript: {fileID: 743901558}
   player1Health:
     bar: {fileID: 1608712237}
     maxVal: 0
@@ -3179,6 +3176,7 @@ GameObject:
   - component: {fileID: 743901555}
   - component: {fileID: 743901557}
   - component: {fileID: 743901556}
+  - component: {fileID: 743901558}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -3239,6 +3237,21 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 743901554}
+--- !u!114 &743901558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 743901554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 985af5aa8e66be14693914c47d0a0dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeRemaining: 0
+  timerDuration: 15
+  timerText: {fileID: 1453813679}
+  isCountingDown: 0
 --- !u!1 &777335584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,7 +3367,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 658403295}
-        m_MethodName: ActionPhase
+        m_MethodName: P1ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3528,7 +3541,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 658403295}
-        m_MethodName: ActionPhase
+        m_MethodName: P1ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4642,7 +4655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerImage: {fileID: 1243478958}
-  battleManagerRef: {fileID: 658403294}
+  timerScript: {fileID: 743901558}
 --- !u!1 &1270467764
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,7 +4944,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 658403295}
-        m_MethodName: ReactionPhase
+        m_MethodName: P2ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5624,7 +5637,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 658403295}
-        m_MethodName: ActionPhase
+        m_MethodName: P1ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6184,7 +6197,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 658403295}
-        m_MethodName: ReactionPhase
+        m_MethodName: P2ActionPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

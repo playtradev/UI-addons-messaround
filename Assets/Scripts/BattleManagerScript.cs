@@ -33,12 +33,8 @@ public class BattleManagerScript : MonoBehaviour {
 
     //Timer
     [Header("Timer")]
-    public int timeRemaining;
-    public int timerDuration = 15;
     [SerializeField]
-    private Text timerText;
-    [SerializeField]
-    private bool isCountingDown = false;
+    private TimerScript timerScript;
 
     //Battle info
     [Header("Health and Defence Bars")]
@@ -69,8 +65,6 @@ public class BattleManagerScript : MonoBehaviour {
 
 
 
-
-
     void Awake()
     {
         //TODO make all these auto calculate from seed stats
@@ -88,7 +82,6 @@ public class BattleManagerScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        //TODO add maths in here to auto generate HP from Seed lvl
         damageCount1 = 0;
         defenceCount1 = 0;
 
@@ -98,48 +91,7 @@ public class BattleManagerScript : MonoBehaviour {
         player1ActionComplete = true;
         player2ActionComplete = true;
 
-
-    StartCoroutine(BattleQueue());
-    }
-
-    //Timer functions
-    public void BeginTimer()
-    {
-        if (!isCountingDown)
-        {
-            CancelInvoke("_tick");
-            isCountingDown = true;
-            timeRemaining = timerDuration;
-            Invoke("_tick", 1f);
-        }
-        else if (isCountingDown)
-        {
-            CancelInvoke("_tick");
-            timeRemaining = timerDuration;
-            Invoke("_tick", 1f);
-        }
-        timerText.text = timeRemaining.ToString();
-    }
-
-    public void StopTimer()
-    {
-        isCountingDown = false;
-        CancelInvoke("_tick");
-    }
-
-    private void _tick()
-    {
-        timeRemaining--;
-        if (timeRemaining > 0)
-        {
-            Invoke("_tick", 1f);
-        }
-        else
-        {
-            isCountingDown = false;
-        }
-        timerText.text = timeRemaining.ToString();
-        //(float)timeRemaining / timerDuration;
+        StartCoroutine(BattleQueue());
     }
 
     //Player turns, simply for end turn button
@@ -191,8 +143,30 @@ public class BattleManagerScript : MonoBehaviour {
         }
     }
 
+    private void ResetDamageCounters()
+    {
+        //Reset Defence
+        player1Defence.CurrentVal = 0;
+        player2Defence.CurrentVal = 0;
+
+        //Reset Damage Counters
+        damageCount1 = 0;
+        defenceCount1 = 0;
+        damageCount2 = 0;
+        defenceCount2 = 0;
+        magicSupport1 = false;
+        magicSupport2 = false;
+
+        //Reset ATT/DEF counters
+        Player1ATK.text = "0";
+        Player1DEF.text = "0";
+        Player2ATK.text = "0";
+        Player2DEF.text = "0";
+
+    }
+
     //Action + Reaction Phases
-    public void ActionPhase()
+    public void P1ActionPhase()
     {
         //First, reset all stats so it re-calculates on each press
         damageCount1 = 0;
@@ -221,7 +195,6 @@ public class BattleManagerScript : MonoBehaviour {
             {
                 SupportActions1(t);
             }
-
         }
 
         //Update UI
@@ -230,13 +203,20 @@ public class BattleManagerScript : MonoBehaviour {
         Player1DEF.text = "" + defenceCount1;
     }
 
-    private void ActionPhaseFailed()
+    private void P1ActionPhaseFailed()
     {
         damageCount1 = 0;
         defenceCount1 = 0;
         magicSupport1 = false;
 
-        //If timer runs out, iterate through all seeds to set full defence
+        //Reset each Seed + Seed Text
+        for (int t = 0; t < seedList1.Length; t++)
+        {
+            seedList1[t].GetComponent<SeedScript>().ResetSeedStats();
+            seedList1[t].GetComponent<SeedScript>().SetStatsText();
+        }
+
+        //Iterate through all seeds to set full defence
         for (int t = 0; t < seedList1.Length; t++)
         {
             seedList1[t].GetComponent<SeedScript>().attackMode = "Defend";
@@ -253,7 +233,7 @@ public class BattleManagerScript : MonoBehaviour {
         player1ActionComplete = true;
     }
 
-    public void ReactionPhase()
+    public void P2ActionPhase()
     {
         damageCount2 = 0;
         defenceCount2 = 0;
@@ -287,19 +267,29 @@ public class BattleManagerScript : MonoBehaviour {
         Player2DEF.text = "" + defenceCount2;
     }
 
-    private void ReactionPhaseFailed()
+    private void P2ActionPhaseFailed()
     {
         damageCount2 = 0;
         defenceCount2 = 0;
         magicSupport2 = false;
 
-        //If timer runs out, set all seeds to defend and set full defence
+        //Reset each Seed + Seed Text
+        for (int t = 0; t < seedList2.Length; t++)
+        {
+            seedList2[t].GetComponent<SeedScript>().ResetSeedStats();
+            seedList2[t].GetComponent<SeedScript>().SetStatsText();
+        }
+
+        //Iterate through all seeds to set full defence
         for (int t = 0; t < seedList2.Length; t++)
         {
             seedList2[t].GetComponent<SeedScript>().attackMode = "Defend";
+            //Also set text to "Defend"
+            seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text = "Defend";
+            //Add to defence Val
             defenceCount2 = defenceCount2 + seedList2[t].GetComponent<SeedScript>().defenceVal;
         }
-        Debug.Log("<color=red> OUT OF TIME, GREEN BOY. FULL DEFENCE </color>");
+        Debug.Log("<color=red>OUT OF TIME </color>");
 
         Player2ATK.text = "" + damageCount2;
         Player2DEF.text = "" + defenceCount2;
@@ -330,12 +320,12 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Might")
             {
-                seedList1[0].GetComponent<SeedScript>().defenceVal = seedList1[0].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                seedList1[0].GetComponent<SeedScript>().defenceVal = seedList1[0].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, (seedList1[t].GetComponent<SeedScript>().defenceVal)));
                 seedList1[0].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                seedList1[2].GetComponent<SeedScript>().defenceVal = seedList1[2].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList1[t].GetComponent<SeedScript>().defenceVal)));
+                seedList1[2].GetComponent<SeedScript>().defenceVal = seedList1[2].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList1[t].GetComponent<SeedScript>().attackVal, (seedList1[t].GetComponent<SeedScript>().defenceVal)));
                 seedList1[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
@@ -369,12 +359,12 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Might")
             {
-                seedList2[0].GetComponent<SeedScript>().defenceVal = seedList2[0].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                seedList2[0].GetComponent<SeedScript>().defenceVal = seedList2[0].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, (seedList2[t].GetComponent<SeedScript>().defenceVal)));
                 seedList2[0].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                seedList2[2].GetComponent<SeedScript>().defenceVal = seedList2[2].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, Mathf.Max(seedList2[t].GetComponent<SeedScript>().defenceVal)));
+                seedList2[2].GetComponent<SeedScript>().defenceVal = seedList2[2].GetComponent<SeedScript>().defenceVal + (Mathf.Max(seedList2[t].GetComponent<SeedScript>().attackVal, (seedList2[t].GetComponent<SeedScript>().defenceVal)));
                 seedList2[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
@@ -395,9 +385,11 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
+                infoPane.text = "Player 1's Seed Supports";
+
                 seedList1[t].GetComponent<SeedScript>().SupportAnim(t);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
@@ -410,7 +402,7 @@ public class BattleManagerScript : MonoBehaviour {
                 //Play Animation
                 seedList1[t].GetComponent<SeedScript>().DefenceAnim(t);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
         }
 
@@ -419,8 +411,11 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Support")
             {
-                //support things
+                infoPane.text = "Player 2's Seed Supports";
+
                 seedList2[t].GetComponent<SeedScript>().SupportAnim(t);
+
+                yield return new WaitForSeconds(2f);
             }
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
@@ -433,7 +428,7 @@ public class BattleManagerScript : MonoBehaviour {
                 //Play Animation
                 seedList2[t].GetComponent<SeedScript>().DefenceAnim(t);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
         }
 
@@ -469,7 +464,7 @@ public class BattleManagerScript : MonoBehaviour {
                         player2Health.CurrentVal = player2Health.CurrentVal - (remainder);
                     }
 
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(2f);
 
                 }
 
@@ -484,10 +479,23 @@ public class BattleManagerScript : MonoBehaviour {
 
                     //Deal damage
                     player2Health.CurrentVal = player2Health.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(2f);
                 }
             }
         }
+
+        if (magicSupport2 == true)
+        {
+            //Info
+            infoPane.text = "Player 2 Magic Support returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " true damage!";
+            //Make Animation!
+            //TODO magic shield animation
+            //Deal damage
+            player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
+
+            yield return new WaitForSeconds(2f);
+        }
+
 
         // Iterate through P2 Attack Seeds
         for (int t = 0; t < seedList2.Length; t++)
@@ -540,6 +548,18 @@ public class BattleManagerScript : MonoBehaviour {
                     yield return new WaitForSeconds(2f);
                 }
             }
+        }
+
+        if (magicSupport1 == true)
+        {
+            //Info
+            infoPane.text = "Player 1 Magic Support returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " true damage!";
+            //Make Animation!
+            //TODO magic shield animation
+            //Deal damage
+            player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
+
+            yield return new WaitForSeconds(2f);
         }
 
         ResetDamageCounters();
@@ -552,9 +572,11 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Support")
             {
+                infoPane.text = "Player 2's Seed Supports";
+
                 seedList1[t].GetComponent<SeedScript>().SupportAnim(t);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
             if (seedList2[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
@@ -567,7 +589,7 @@ public class BattleManagerScript : MonoBehaviour {
                 //Play Animation
                 seedList1[t].GetComponent<SeedScript>().DefenceAnim(t);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
 
             }
         }
@@ -577,7 +599,11 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Support")
             {
+                infoPane.text = "Player 1's Seed Supports";
+
                 seedList1[t].GetComponent<SeedScript>().SupportAnim(t);
+
+                yield return new WaitForSeconds(2f);
             }
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Defend")
             {
@@ -590,7 +616,7 @@ public class BattleManagerScript : MonoBehaviour {
                 //Play Animation
                 seedList1[t].GetComponent<SeedScript>().DefenceAnim(t);
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
         }
 
@@ -626,7 +652,7 @@ public class BattleManagerScript : MonoBehaviour {
                         player1Health.CurrentVal = player1Health.CurrentVal - (remainder);
                     }
 
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(2f);
 
                 }
 
@@ -641,13 +667,26 @@ public class BattleManagerScript : MonoBehaviour {
 
                     //Deal damage
                     player1Health.CurrentVal = player1Health.CurrentVal - seedList2[t].GetComponent<SeedScript>().attackVal;
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(2f);
                 }
             }
         }
 
-        // Iterate through P1 Attack Seeds
-        for (int t = 0; t < seedList1.Length; t++)
+
+        if (magicSupport1 == true)
+        {
+            //Info
+            infoPane.text = "Player 1 Magic Support returns " + (Mathf.CeilToInt((float)damageCount2 / 5)) + " true damage!";
+            //Make Animation!
+            //TODO magic shield animation
+            //Deal damage
+            player2Health.CurrentVal = player2Health.CurrentVal - (Mathf.CeilToInt((float)damageCount2 / 5));
+
+            yield return new WaitForSeconds(2f);
+        }
+
+            // Iterate through P1 Attack Seeds
+            for (int t = 0; t < seedList1.Length; t++)
         {
             if (seedList1[t].GetComponent<SeedScript>().attackMode == "Attack")
             {
@@ -678,7 +717,7 @@ public class BattleManagerScript : MonoBehaviour {
                         player2Health.CurrentVal = player2Health.CurrentVal - (remainder);
                     }
 
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(2f);
                 }
 
                 //Deal straight to HP pool
@@ -693,34 +732,24 @@ public class BattleManagerScript : MonoBehaviour {
                     //Deal damage
                     player2Health.CurrentVal = player2Health.CurrentVal - seedList1[t].GetComponent<SeedScript>().attackVal;
 
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(2f);
                 }
+            }
+
+            if (magicSupport2 == true)
+            {
+                //Info
+                infoPane.text = "Player 2 Magic Support returns " + (Mathf.CeilToInt((float)damageCount1 / 5)) + " true damage!";
+                //Make Animation!
+                //TODO magic shield animation
+                //Deal damage
+                player1Health.CurrentVal = player1Health.CurrentVal - (Mathf.CeilToInt((float)damageCount1 / 5));
+
+                yield return new WaitForSeconds(2f);
             }
 
             ResetDamageCounters();
         }
-    }
-
-    private void ResetDamageCounters()
-    {
-        //Reset Defence
-        player1Defence.CurrentVal = 0;
-        player2Defence.CurrentVal = 0;
-
-        //Reset Damage Counters
-        damageCount1 = 0;
-        defenceCount1 = 0;
-        damageCount2 = 0;
-        defenceCount2 = 0;
-        magicSupport1 = false;
-        magicSupport2 = false;
-
-        //Reset ATT/DEF counters
-        Player1ATK.text = "0";
-        Player1DEF.text = "0";
-        Player2ATK.text = "0";
-        Player2DEF.text = "0";
-
     }
 
     //Combat Manager
@@ -730,36 +759,36 @@ public class BattleManagerScript : MonoBehaviour {
         infoPane.text = "Player 1's Action";
         player1ActionComplete = false;
         SetInteractableSeeds();
-        BeginTimer();
+        timerScript.BeginTimer();
         
-        yield return new WaitUntil(() => { return timeRemaining <= 0 || player1ActionComplete;  });
+        yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player1ActionComplete;  });
         if (player1ActionComplete == true)
         {
-            ActionPhase();
+            P1ActionPhase();
         }
         else
         {
-            ActionPhaseFailed();
+            P1ActionPhaseFailed();
         }
-        StopTimer();
+        timerScript.StopTimer();
 
 
         //  ***Phase Two***
         infoPane.text = "Player 2's Reaction";
         player2ActionComplete = false;
         SetInteractableSeeds();
-        BeginTimer();
+        timerScript.BeginTimer();
 
-        yield return new WaitUntil(() => { return timeRemaining <= 0 || player2ActionComplete; });
+        yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player2ActionComplete; });
         if (player2ActionComplete == true)
         {
-            ReactionPhase();
+            P2ActionPhase();
         }
         else
         {
-            ReactionPhaseFailed();
+            P2ActionPhaseFailed();
         }
-        StopTimer();
+        timerScript.StopTimer();
 
 
         //  ***Resolution Phase***
@@ -781,34 +810,34 @@ public class BattleManagerScript : MonoBehaviour {
         infoPane.text = "Player 2's Action";
         player2ActionComplete = false;
         SetInteractableSeeds();
-        BeginTimer();
-        yield return new WaitUntil(() => { return timeRemaining <= 0 || player2ActionComplete; });
+        timerScript.BeginTimer();
+        yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player2ActionComplete; });
         if (player2ActionComplete == true)
         {
-            ReactionPhase();
+            P2ActionPhase();
         }
         else
         {
-            ReactionPhaseFailed();
+            P2ActionPhaseFailed();
         }
-        StopTimer();
+        timerScript.StopTimer();
 
 
         //  ***Phase Four***
         infoPane.text = "Player 1's Reaction";
         player1ActionComplete = false;
         SetInteractableSeeds();
-        BeginTimer();
-        yield return new WaitUntil(() => { return timeRemaining <= 0 || player1ActionComplete; });
+        timerScript.BeginTimer();
+        yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player1ActionComplete; });
         if (player1ActionComplete == true)
         {
-            ActionPhase();
+            P1ActionPhase();
         }
         else
         {
-            ActionPhaseFailed();
+            P1ActionPhaseFailed();
         }
-        StopTimer();
+        timerScript.StopTimer();
 
 
         //  ***Resolution Phase***

@@ -9,7 +9,7 @@ public class timerImageLerp : MonoBehaviour {
     private Image timerImage;
 
     [SerializeField]
-    private GameObject battleManagerRef;
+    private TimerScript timerScript;
 
     private float time;
 
@@ -21,7 +21,7 @@ public class timerImageLerp : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        //TODO this is hacky
-        timerImage.fillAmount = Mathf.Lerp(timerImage.fillAmount, (float)((battleManagerRef.GetComponent<BattleManagerScript>().timeRemaining) - 1) / battleManagerRef.GetComponent<BattleManagerScript>().timerDuration, Time.deltaTime * 2);
+        //TODO fix this, this is hacky
+        timerImage.fillAmount = Mathf.Lerp(timerImage.fillAmount, (float)((timerScript.timeRemaining) - 1) / timerScript.timerDuration, Time.deltaTime * 2);
     }
 }
