@@ -18,7 +18,7 @@ public class userNameScript : MonoBehaviour {
     {
         userName = userNameText.text;
 
-        Debug.Log("<color=green>YEA SURE:</color>" + userName);
+        //Debug.Log("<color=green>Username is :</color>" + userName);
     }
 
 }

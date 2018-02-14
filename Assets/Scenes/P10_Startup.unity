@@ -649,7 +649,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 580525208aa6298409a6374f18b13f26, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -1251,7 +1251,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 580525208aa6298409a6374f18b13f26, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -1525,6 +1525,7 @@ MonoBehaviour:
   nextButton: {fileID: 794548327}
   textFile: {fileID: 4900000, guid: 5d035eeb4d2247e4caaebc610486c0fe, type: 3}
   textBox: {fileID: 1595768510}
+  currentLine: 0
   recentreMapButton: {fileID: 0}
   inputName: {fileID: 1305067389}
   submitNameButton: {fileID: 1116390270}
@@ -1540,19 +1541,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 915285d85aed1634bb37cbf4eb8aaa5a, type: 3}
   - {fileID: 21300000, guid: 8503b692ec8868648863dabffecba069, type: 3}
   - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
-  - {fileID: 21300000, guid: 8503b692ec8868648863dabffecba069, type: 3}
-  - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
-  - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
   - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
   - {fileID: 21300000, guid: 915285d85aed1634bb37cbf4eb8aaa5a, type: 3}
   - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
   - {fileID: 21300000, guid: 915285d85aed1634bb37cbf4eb8aaa5a, type: 3}
   - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
-  - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
+  - {fileID: 0}
   - {fileID: 21300000, guid: fb03c9269d51c9443868bed6e77bfc01, type: 3}
+  - {fileID: 0}
   - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
-  - {fileID: 21300000, guid: d34855e00e0ad264a9a313fb382ffa45, type: 3}
-  - {fileID: 21300000, guid: b3719e466a2841946b28cec99abf9c10, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &845136498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,7 +2551,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 580525208aa6298409a6374f18b13f26, type: 3}
     m_FontSize: 65
     m_FontStyle: 0
     m_BestFit: 0
@@ -2624,7 +2625,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 580525208aa6298409a6374f18b13f26, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -2732,7 +2733,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 580525208aa6298409a6374f18b13f26, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
@@ -2874,7 +2875,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 580525208aa6298409a6374f18b13f26, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0

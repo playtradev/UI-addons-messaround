@@ -11,7 +11,7 @@ public class DialogueHandlerScript : MonoBehaviour {
     public TextAsset textFile;
     public Text textBox;
     private string[] mineDialogue;
-    private int currentLine;
+    public int currentLine;
     private int endAtLine;
 
     [Header("GPS")]
@@ -60,8 +60,8 @@ public class DialogueHandlerScript : MonoBehaviour {
         if (GameObject.Find("PersistentInfo").GetComponent<PersistentScript>().Initialised == true)
         {
             userName = GameObject.Find("PersistentInfo").GetComponent<PersistentScript>().PlayerUsername;
-            currentLine = 14;
-            currentFace = 14;
+            currentLine = 11;
+            currentFace = 11;
             CheckLine();
         }
     }
@@ -85,24 +85,24 @@ public class DialogueHandlerScript : MonoBehaviour {
             NextLine();
             NextFace();
 
-            if (currentLine == 11)
+            if (currentLine == 8)
             {
                 inputName.SetActive(true);
                 submitNameButton.SetActive(true);
                 nextButton.gameObject.SetActive(false);
             }
-            if ((currentLine == 12) && (userName == ""))
+            if ((currentLine == 9) && (userName == ""))
             {
                 GenerateRandomUsername();
                 submitNameButton.SetActive(false);
                }
-            if ((currentLine == 12) && (userName != ""))
+            if ((currentLine == 9) && (userName != ""))
             {
                 inputName.SetActive(false);
                 submitNameButton.SetActive(false);
                 nextButton.gameObject.SetActive(true);
             }
-            if (currentLine == 13)
+            if (currentLine == 10)
             {
             // TODO this if is hacky AF.
                 if (userName != null)
@@ -115,7 +115,7 @@ public class DialogueHandlerScript : MonoBehaviour {
             }
 
             // Jumps to here when already initialised
-            if (currentLine == 15)
+            if (currentLine == 12)
             {
             nextButton.gameObject.SetActive(false);
             ScrollSnapRef.GetComponent<ScrollRect>().vertical = true;
@@ -156,8 +156,8 @@ public class DialogueHandlerScript : MonoBehaviour {
         }
         else
         {
-            textBox.text = mineDialogue[16].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
-            currentFaceImage.sprite = spriteList[3];
+            textBox.text = mineDialogue[13].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
+            currentFaceImage.sprite = spriteList[1];
 
             //Hide and show correct buttons
             inputName.SetActive(false);
@@ -172,8 +172,8 @@ public class DialogueHandlerScript : MonoBehaviour {
 
     public void AcceptRandomName()
     {
-        currentLine = 12;
-        currentFace = 12;
+        currentLine = 9;
+        currentFace = 9;
 
         userName = randomUserName;
         CheckLine();
@@ -187,14 +187,12 @@ public class DialogueHandlerScript : MonoBehaviour {
 
     public void PickOwnName()
     {
-        currentLine = 10;
-        currentFace = 10;
+        currentLine = 7;
+        currentFace = 7;
 
         CheckLine();
 
-        //Hide and show correct buttons
-        inputName.SetActive(true);
-        nextButton.gameObject.SetActive(true);
+        //Hide buttons
         newRandomButton.gameObject.SetActive(false);
         acceptRandomButton.gameObject.SetActive(false);
         inputOwnNameButton.gameObject.SetActive(false);

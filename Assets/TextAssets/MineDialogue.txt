@@ -1,17 +1,14 @@
 Tap to awaken your MINE
 hmmrghbl?
-OH!_NEW_LINE_EXCUSE ME!
+OH_NEW_LINE_EXCUSE ME!
 Oh jeez, caught sleeping first day on the job...
-Great to meet you!_NEW_LINE_I am mine!
-No wait,_NEW_LINE_I mean,_NEW_LINE_is that confusing? What I mean is,_NEW_LINE_um,
-I'm YOUR mine. Your very own personal mine.
-I can't wait to get to know you, and help you out as much as I can.
-Connecting with friends, finding great local places to eat, challenging people to games...
-OMIGOSH!_NEW_LINE_I forgot to ask you for your name!
+Great to meet you!_NEW_LINE_I am mine._NEW_LINE_Your very own personal mine.
+I will help you_NEW_LINE_connect with friends,_NEW_LINE_challenge people to games,_NEW_LINE_find amazing local places...
+OMIGOSH_NEW_LINE_I forgot to ask you for your name!
 What should I call you?
-Woah,_NEW_LINE_PLAYER_USERNAME!?_NEW_LINE_What a cool name!
-Well then, let’s begin. Scroll down when you are ready.
+Woah,_NEW_LINE_PLAYER_USERNAME?_NEW_LINE_What a cool name
+Well then PLAYER_USERNAME,_NEW_LINE_let’s begin._NEW_LINE_Scroll down when you are ready.
 
-Welcomst backe, Oh_NEW_LINE_PLAYER_USERNAME,_NEW_LINE_my bravest Warrior! Scroll ye down whenst thou art ready
+Welcomst backe,_NEW_LINE_Oh PLAYER_USERNAME,_NEW_LINE_my bravest Warrior._NEW_LINE_Scroll ye down whenst thou art ready
 
 Hmm, I didn't get that._NEW_LINE_How about I call you _RANDOM_USERNAME_?

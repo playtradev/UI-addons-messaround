@@ -7,10 +7,8 @@ public class BattleManagerScript : MonoBehaviour {
 
     //Seed position
     [Header("Seed Array List")]
-    [SerializeField]
-    private Button[] seedList1;
-    [SerializeField]
-    private Button[] seedList2;
+    public Button[] seedList1;   
+    public Button[] seedList2;
 
     //UI
     [Header("UI")]
@@ -24,12 +22,6 @@ public class BattleManagerScript : MonoBehaviour {
     private Text Player2ATK;
     [SerializeField]
     private Text Player2DEF;
-    [SerializeField]
-    private GameObject player1Face;
-    [SerializeField]
-    private GameObject player2Face;
-    [SerializeField]
-    private Sprite[] faceAnimations;
 
     //Timer
     [Header("Timer")]
@@ -47,21 +39,27 @@ public class BattleManagerScript : MonoBehaviour {
     [SerializeField]
     private Stat player2Defence;
 
-
     [Header("End of Game PopUp")]
     [SerializeField]
     private GameObject GameOverPopUpRef;
 
     //Combat counters
-    private int damageCount1;
-    private int defenceCount1;
-    private int damageCount2;
-    private int defenceCount2;
-    private bool magicSupport1;
-    private bool magicSupport2;
+    public int damageCount1;
+    public int defenceCount1;
+    public int damageCount2;
+    public int defenceCount2;
+    public bool magicSupport1;
+    public bool magicSupport2;
 
-    private bool player1ActionComplete;
-    private bool player2ActionComplete;
+    [Header("Set Interactable Ref")]
+    public bool player1ActionComplete;
+    public bool player2ActionComplete;
+    [SerializeField]
+    private SetInteractableScript SetInteractableScriptRef;
+
+    [Header("AI")]
+    [SerializeField]
+    private AI_Script AIScriptRef;
 
 
 
@@ -88,9 +86,6 @@ public class BattleManagerScript : MonoBehaviour {
         damageCount2 = 0;
         defenceCount2 = 0;
 
-        player1ActionComplete = true;
-        player2ActionComplete = true;
-
         StartCoroutine(BattleQueue());
     }
 
@@ -103,44 +98,6 @@ public class BattleManagerScript : MonoBehaviour {
     public void PlayerTwoEndTurn()
     {
         player2ActionComplete = true;
-    }
-
-    //Setting Seeds Interactable or Not
-    private void SetInteractableSeeds()
-    {
-        if (player1ActionComplete == false)
-        {
-            for (int t = 0; t < seedList1.Length; t++)
-            {
-                seedList1[t].GetComponent<Button>().interactable = true;
-                player1Face.GetComponent<Image>().sprite = faceAnimations[1];
-            }
-        }
-        else if (player1ActionComplete == true)
-        {
-            for (int t = 0; t < seedList1.Length; t++)
-            {
-                seedList1[t].GetComponent<Button>().interactable = false;
-                player1Face.GetComponent<Image>().sprite = faceAnimations[0];
-            }
-        }
-
-        if (player2ActionComplete == false)
-        {
-            for (int t = 0; t < seedList2.Length; t++)
-            {
-                seedList2[t].GetComponent<Button>().interactable = true;
-                player2Face.GetComponent<Image>().sprite = faceAnimations[1];
-            }
-        }
-        else if (player2ActionComplete == true)
-        {
-            for (int t = 0; t < seedList2.Length; t++)
-            {
-                seedList2[t].GetComponent<Button>().interactable = false;
-                player2Face.GetComponent<Image>().sprite = faceAnimations[0];
-            }
-        }
     }
 
     private void ResetDamageCounters()
@@ -757,8 +714,8 @@ public class BattleManagerScript : MonoBehaviour {
     {
         //  ***Phase One***
         infoPane.text = "Player 1's Action";
-        player1ActionComplete = false;
-        SetInteractableSeeds();
+        player2ActionComplete = true;
+        SetInteractableScriptRef.SetInteractableObjects();
         timerScript.BeginTimer();
         
         yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player1ActionComplete;  });
@@ -776,8 +733,10 @@ public class BattleManagerScript : MonoBehaviour {
         //  ***Phase Two***
         infoPane.text = "Player 2's Reaction";
         player2ActionComplete = false;
-        SetInteractableSeeds();
+        SetInteractableScriptRef.SetInteractableObjects();
         timerScript.BeginTimer();
+
+        AIScriptRef.StartAIActionPhase();
 
         yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player2ActionComplete; });
         if (player2ActionComplete == true)
@@ -792,8 +751,9 @@ public class BattleManagerScript : MonoBehaviour {
 
 
         //  ***Resolution Phase***
-        infoPane.text = "RESOLVING COMBAT!";
-        SetInteractableSeeds();
+        player1ActionComplete = false;
+        player2ActionComplete = false;
+        SetInteractableScriptRef.ResolutionPhaseInteractables();
         yield return StartCoroutine( ResolutionPhase1() );
         
 
@@ -808,9 +768,12 @@ public class BattleManagerScript : MonoBehaviour {
 
         //  ***Phase Three***
         infoPane.text = "Player 2's Action";
-        player2ActionComplete = false;
-        SetInteractableSeeds();
+        player1ActionComplete = true;
+        SetInteractableScriptRef.SetInteractableObjects();
         timerScript.BeginTimer();
+
+        AIScriptRef.StartAIActionPhase();
+
         yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player2ActionComplete; });
         if (player2ActionComplete == true)
         {
@@ -826,7 +789,7 @@ public class BattleManagerScript : MonoBehaviour {
         //  ***Phase Four***
         infoPane.text = "Player 1's Reaction";
         player1ActionComplete = false;
-        SetInteractableSeeds();
+        SetInteractableScriptRef.SetInteractableObjects();
         timerScript.BeginTimer();
         yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player1ActionComplete; });
         if (player1ActionComplete == true)
@@ -841,7 +804,9 @@ public class BattleManagerScript : MonoBehaviour {
 
 
         //  ***Resolution Phase***
-        SetInteractableSeeds();
+        player1ActionComplete = false;
+        player2ActionComplete = false;
+        SetInteractableScriptRef.ResolutionPhaseInteractables();
         yield return StartCoroutine( ResolutionPhase1() );
 
 
