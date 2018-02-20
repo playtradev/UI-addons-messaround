@@ -1647,7 +1647,7 @@ MonoBehaviour:
   supportText: {fileID: 0}
   statsText: {fileID: 555707563}
   attackMode: 
-  attackVal: 100
+  attackVal: 5
   defenceVal: 1
   defaultAttackVal: 0
   defaultDefenceVal: 0
@@ -3531,7 +3531,7 @@ MonoBehaviour:
   supportText: {fileID: 0}
   statsText: {fileID: 2049441665}
   attackMode: 
-  attackVal: 100
+  attackVal: 4
   defenceVal: 3
   defaultAttackVal: 0
   defaultDefenceVal: 0
@@ -6826,6 +6826,11 @@ MonoBehaviour:
   Might_Supp_2: {fileID: 1864306372}
   Mind_Supp_1: {fileID: 983733167}
   Mind_Supp_2: {fileID: 433513338}
+  SeedSprites:
+  - {fileID: 21300000, guid: 0e6f10d57ca0333419b6a1243e436016, type: 3}
+  - {fileID: 21300000, guid: b4539329f5a0bff409af2708b01e8c70, type: 3}
+  - {fileID: 21300000, guid: d45f48a0fb1b86343bda0031eac3cb4e, type: 3}
+  - {fileID: 21300000, guid: 3ff742b56b60de54197a47fa2d14733a, type: 3}
 --- !u!4 &1852504880
 Transform:
   m_ObjectHideFlags: 0
@@ -6833,7 +6838,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1852504878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.49846143, y: 0.46171987, z: 86.684395}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

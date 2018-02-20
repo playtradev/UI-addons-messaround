@@ -754,6 +754,8 @@ public class BattleManagerScript : MonoBehaviour {
         player1ActionComplete = false;
         player2ActionComplete = false;
         SetInteractableScriptRef.ResolutionPhaseInteractables();
+
+        AIScriptRef.ResetSeedSprites();
         yield return StartCoroutine( ResolutionPhase1() );
         
 
@@ -807,6 +809,8 @@ public class BattleManagerScript : MonoBehaviour {
         player1ActionComplete = false;
         player2ActionComplete = false;
         SetInteractableScriptRef.ResolutionPhaseInteractables();
+
+        AIScriptRef.ResetSeedSprites();
         yield return StartCoroutine( ResolutionPhase1() );
 
 
