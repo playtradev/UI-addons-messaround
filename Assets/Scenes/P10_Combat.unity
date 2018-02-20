@@ -1647,7 +1647,7 @@ MonoBehaviour:
   supportText: {fileID: 0}
   statsText: {fileID: 555707563}
   attackMode: 
-  attackVal: 5
+  attackVal: 100
   defenceVal: 1
   defaultAttackVal: 0
   defaultDefenceVal: 0
@@ -1672,7 +1672,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.48442906, g: 0.8235294, b: 0.48676768, a: 1}
+    m_PressedColor: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
     m_DisabledColor: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 0.37254903}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2328,7 +2328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3531,7 +3531,7 @@ MonoBehaviour:
   supportText: {fileID: 0}
   statsText: {fileID: 2049441665}
   attackMode: 
-  attackVal: 4
+  attackVal: 100
   defenceVal: 3
   defaultAttackVal: 0
   defaultDefenceVal: 0
@@ -4178,7 +4178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.006896496, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4730,7 +4730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4959,7 +4959,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.48442906, g: 0.8235294, b: 0.48676768, a: 1}
+    m_PressedColor: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
     m_DisabledColor: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 0.37254903}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5232,7 +5232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.006896496, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6212,7 +6212,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.48442906, g: 0.8235294, b: 0.48676768, a: 1}
+    m_PressedColor: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
     m_DisabledColor: {r: 0.58431375, g: 0.5686275, b: 0.4784314, a: 0.37254903}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6717,34 +6717,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1777161852}
---- !u!1 &1802451864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1802451865}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1802451865
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1802451864}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26588246, y: 0.39622906, z: 89.97002}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1845175446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6850,6 +6822,10 @@ MonoBehaviour:
   p2EndTurnButtonRef: {fileID: 1571983350}
   p2Attack: 
   p2Defence: 
+  Might_Supp_1: {fileID: 1577170082}
+  Might_Supp_2: {fileID: 1864306372}
+  Mind_Supp_1: {fileID: 983733167}
+  Mind_Supp_2: {fileID: 433513338}
 --- !u!4 &1852504880
 Transform:
   m_ObjectHideFlags: 0
@@ -6861,7 +6837,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1862596879
 GameObject:

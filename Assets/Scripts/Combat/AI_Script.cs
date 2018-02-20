@@ -17,7 +17,17 @@ public class AI_Script : MonoBehaviour
 
     private int tempDefenceCount;
     private int tempAttackCount;
+    private int SeedsSet;
 
+    [Header("Sub-Buttons")]
+    [SerializeField]
+    private Button Might_Supp_1;
+    [SerializeField]
+    private Button Might_Supp_2;
+    [SerializeField]
+    private Button Mind_Supp_1;
+    [SerializeField]
+    private Button Mind_Supp_2;
 
 
     private void Start()
@@ -99,7 +109,6 @@ public class AI_Script : MonoBehaviour
         else
         {
             StartCoroutine("AIReactionDefenceLoop");
-
         }
 
             yield return 0;
@@ -108,7 +117,43 @@ public class AI_Script : MonoBehaviour
     private IEnumerator AIReactionMassiveAttack()
     {
         Debug.Log("<color=blue>MASSIVE ATTACK </color>");
-        yield return 0;
+
+        for (int t = 0; t < BattleManagerRef.seedList2.Length; t++)
+        {
+            //Deploy Might support Seed
+            if ((t == 0)
+                && ((BattleManagerRef.seedList2[0].GetComponent<SeedScript>().attackVal < (Mathf.CeilToInt(BattleManagerRef.seedList2[1].GetComponent<SeedScript>().attackVal) * 1.5))
+                || (BattleManagerRef.seedList2[0].GetComponent<SeedScript>().attackVal < (Mathf.CeilToInt(BattleManagerRef.seedList2[2].GetComponent<SeedScript>().attackVal) * 1.5))))
+            {
+
+                if (BattleManagerRef.seedList2[1].GetComponent<SeedScript>().attackVal >= BattleManagerRef.seedList2[2].GetComponent<SeedScript>().attackVal)
+                {
+                StartCoroutine(ClickUntil(BattleManagerRef.seedList2[1], "Support"));
+                yield return new WaitUntil(() => BattleManagerRef.seedList2[1].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
+                yield return new WaitForSeconds(1f);
+                Might_Supp_1.onClick.Invoke();
+                }
+                else
+                {
+                StartCoroutine(ClickUntil(BattleManagerRef.seedList2[t], "Support"));
+                yield return new WaitUntil(() => BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
+                yield return new WaitForSeconds(1f);
+                Might_Supp_2.onClick.Invoke();
+                }
+            }
+
+            else
+            {
+                StartCoroutine(ClickUntil(BattleManagerRef.seedList2[t], "Attack"));
+                yield return new WaitUntil(() => BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Attack");
+            }
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        //Press End Turn Button
+        p2EndTurnButtonRef.onClick.Invoke();
+        Debug.Log("<color=yellow>END TURN CLICK </color>");
     }
 
 
@@ -137,6 +182,7 @@ public class AI_Script : MonoBehaviour
             p2Defence[maxDefValIndex] = 0;
             p2Attack[maxDefValIndex] = 0;
             yield return new WaitForSeconds(1f);
+            SeedsSet++;
         }
         //Or, Invoke click and restart
         else
@@ -148,16 +194,39 @@ public class AI_Script : MonoBehaviour
             yield break;
         }
 
-        if (BattleManagerRef.damageCount1 > tempDefenceCount)
+        //If defence still not high enough, more defence
+        if (BattleManagerRef.damageCount1 > tempDefenceCount && (SeedsSet < 3))
         {
             Debug.Log("<color=red>damage > def, looping </color>");
             StartCoroutine("AIReactionDefenceLoop");
             yield break;
         }
-        else if (BattleManagerRef.damageCount1 <= tempDefenceCount)
+
+        //Else if all damage is blocked, set remaining Seeds to attack
+        else if (BattleManagerRef.damageCount1 <= tempDefenceCount && (SeedsSet < 3))
         {
+            for (int t = 0; t < BattleManagerRef.seedList2.Length; t++)
+            {
+                if (p2Defence[t] > 0)
+                {
+                    StartCoroutine(ClickUntil(BattleManagerRef.seedList2[t], "Attack"));
+                    yield return new WaitUntil(() => BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Attack");
+                }
+
+                if ((BattleManagerRef.damageCount1 / 5) > BattleManagerRef.seedList2[2].GetComponent<SeedScript>().attackVal)
+                {
+                    StartCoroutine(ClickUntil(BattleManagerRef.seedList2[2], "Support"));
+                    yield return new WaitUntil(() => BattleManagerRef.seedList2[2].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
+                }
+            }
 
         }
+
+        yield return new WaitForSeconds(2f);
+
+        //Press End Turn Button
+        p2EndTurnButtonRef.onClick.Invoke();
+        Debug.Log("<color=yellow>END TURN CLICK </color>");
     }
 
 

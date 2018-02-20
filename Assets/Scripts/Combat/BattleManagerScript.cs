@@ -262,12 +262,12 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Mind")
             {
-                seedList1[1].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[1].GetComponent<SeedScript>().attackVal + (seedList1[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList1[1].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[1].GetComponent<SeedScript>().attackVal + (seedList1[1].GetComponent<SeedScript>().attackVal / 2));
                 seedList1[1].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList1[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                seedList1[2].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[2].GetComponent<SeedScript>().attackVal + (seedList1[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList1[2].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[2].GetComponent<SeedScript>().attackVal + (seedList1[2].GetComponent<SeedScript>().attackVal / 2));
                 seedList1[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
@@ -301,12 +301,12 @@ public class BattleManagerScript : MonoBehaviour {
         {
             if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Mind")
             {
-                seedList2[1].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList2[1].GetComponent<SeedScript>().attackVal + (seedList2[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList2[1].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList2[1].GetComponent<SeedScript>().attackVal + (seedList2[1].GetComponent<SeedScript>().attackVal / 2));
                 seedList2[1].GetComponent<SeedScript>().SetStatsText();
             }
             else if (seedList2[t].transform.Find("Supp_Text").GetComponentInChildren<Text>().text == "Magic")
             {
-                seedList2[2].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[2].GetComponent<SeedScript>().attackVal + (seedList2[t].GetComponent<SeedScript>().attackVal / 2));
+                seedList2[2].GetComponent<SeedScript>().attackVal = Mathf.CeilToInt(seedList1[2].GetComponent<SeedScript>().attackVal + (seedList2[2].GetComponent<SeedScript>().attackVal / 2));
                 seedList2[2].GetComponent<SeedScript>().SetStatsText();
             }
         }
@@ -736,7 +736,7 @@ public class BattleManagerScript : MonoBehaviour {
         SetInteractableScriptRef.SetInteractableObjects();
         timerScript.BeginTimer();
 
-        AIScriptRef.StartAIActionPhase();
+        AIScriptRef.StartAIReactionPhase();
 
         yield return new WaitUntil(() => { return timerScript.timeRemaining <= 0 || player2ActionComplete; });
         if (player2ActionComplete == true)
