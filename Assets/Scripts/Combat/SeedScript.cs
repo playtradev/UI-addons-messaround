@@ -12,6 +12,7 @@ public class SeedScript : MonoBehaviour
     public Button support2;
     public Text supportText;
     public Text statsText;
+    public Text AttackTypeRef;
 
 
     [Header("Seed Attack mode")]

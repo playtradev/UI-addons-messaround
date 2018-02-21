@@ -179,21 +179,19 @@ public class AI_Script : MonoBehaviour
                 StartCoroutine(ClickUntil(BattleManagerRef.seedList2[1], "Support"));
                 yield return new WaitUntil(() => BattleManagerRef.seedList2[1].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
                 yield return new WaitForSeconds(1f);
-                Might_Supp_1.onClick.Invoke();
-
-                yield return new WaitForSeconds(1f);
-                SetSeedLocked(t);
+                Might_Supp_1.onClick.Invoke();               
                 }
+
                 else
                 {
                 StartCoroutine(ClickUntil(BattleManagerRef.seedList2[t], "Support"));
                 yield return new WaitUntil(() => BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
                 yield return new WaitForSeconds(1f);
-                Might_Supp_2.onClick.Invoke();
-                
+                Might_Supp_2.onClick.Invoke();   
+                }
+
                 yield return new WaitForSeconds(1f);
                 SetSeedLocked(t);
-                }
             }
 
             else
