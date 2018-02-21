@@ -12,7 +12,6 @@ public class SeedScript : MonoBehaviour
     public Button support2;
     public Text supportText;
     public Text statsText;
-    public Text AttackTypeRef;
 
 
     [Header("Seed Attack mode")]
@@ -92,6 +91,11 @@ public class SeedScript : MonoBehaviour
     public void SupportButton2()
     {
         supportText.text = support2.GetComponentInChildren<Text>().text;
+    }
+
+    public void StartupAnim()
+    {
+        thisSeed.GetComponent<Animator>().Play("Startup", -1, 0.0f);
     }
 
     public void AttackAnim(int a)

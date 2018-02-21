@@ -13,6 +13,8 @@ public class BattleManagerScript : MonoBehaviour {
     //UI
     [Header("UI")]
     [SerializeField]
+    private CombatStartupAnim CombatStartupAnimRef;
+    [SerializeField]
     private Text infoPane;
     [SerializeField]
     private Text Player1ATK;
@@ -86,6 +88,7 @@ public class BattleManagerScript : MonoBehaviour {
         damageCount2 = 0;
         defenceCount2 = 0;
 
+        CombatStartupAnimRef.StartupAnimations();
         StartCoroutine(BattleQueue());
     }
 

@@ -9,7 +9,7 @@ public class InstantiateCirclePopAnim : MonoBehaviour {
     private GameObject CirclePopPrefab;
 
     [SerializeField]
-    private GameObject refToSelfButton;
+    private GameObject refToAnimCentre;
 
 
     // Use this for initialization
@@ -20,9 +20,9 @@ public class InstantiateCirclePopAnim : MonoBehaviour {
 	
     private IEnumerator InstantiateAnimAtLocation()
     {
-        //GameObject animInstance = (GameObject)Instantiate(CirclePopPrefab, refToSelfButton.GetComponent<RectTransform>().rect.center, refToSelfButton.transform.rotation);
+        GameObject animInstance = (GameObject)Instantiate(CirclePopPrefab, refToAnimCentre.transform);
 
-        GameObject animInstance = (GameObject)Instantiate(CirclePopPrefab, refToSelfButton.transform);
+        //animInstance.transform.localPosition = new Vector3 (0, 50, -10);
 
         animInstance.GetComponent<Animator>().speed = 2f;
 

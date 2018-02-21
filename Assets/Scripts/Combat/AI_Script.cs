@@ -63,6 +63,8 @@ public class AI_Script : MonoBehaviour
     private void SetSeedLocked(int t)
     {
         BattleManagerRef.seedList2[t].GetComponent<Image>().sprite = SeedSprites[3];
+
+        BattleManagerRef.seedList2[t].GetComponent<InstantiateCirclePopAnim>().AnimateOnClick();
     }
 
     private IEnumerator ClickUntil(Button b, string s)
