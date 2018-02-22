@@ -138,16 +138,16 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0577208, y: 1.057721, z: 1.057721}
   m_Children:
-  - {fileID: 640733804}
   - {fileID: 777335585}
   - {fileID: 1540634408}
   - {fileID: 781584264}
+  - {fileID: 640733804}
   m_Father: {fileID: 2110026033}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.010546, y: -15}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &45833649
@@ -1773,11 +1773,11 @@ RectTransform:
   - {fileID: 555707565}
   - {fileID: 524556737}
   m_Father: {fileID: 1862596880}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 269.0001, y: -600}
+  m_AnchoredPosition: {x: 269.0001, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!95 &372253099
@@ -1792,7 +1792,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 688fdc55288bc824c9b0cbfd714896e7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2836,12 +2836,12 @@ RectTransform:
   - {fileID: 391159828}
   - {fileID: 1315453164}
   m_Father: {fileID: 44594690}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.009959354, y: 14.681411}
-  m_SizeDelta: {x: 799, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &648437983
 GameObject:
@@ -2888,6 +2888,7 @@ GameObject:
   - component: {fileID: 658403296}
   - component: {fileID: 658403295}
   - component: {fileID: 658403297}
+  - component: {fileID: 658403298}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -2914,6 +2915,7 @@ MonoBehaviour:
   - {fileID: 1343282225}
   - {fileID: 1597611008}
   - {fileID: 372253095}
+  CombatStartupAnimRef: {fileID: 658403298}
   infoPane: {fileID: 729683305}
   Player1ATK: {fileID: 1435214633}
   Player1DEF: {fileID: 975759623}
@@ -2999,6 +3001,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e993a4f85e8160b4bbf429ff155ea1b5, type: 3}
   TimerRef: {fileID: 743901556}
   CountdownRef: {fileID: 1243478958}
+--- !u!114 &658403298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 658403294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d5363a481a7f94db7b8b22473b11c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animWaitTime: 0.25
+  battleManagerRef: {fileID: 658403295}
 --- !u!1 &693574417
 GameObject:
   m_ObjectHideFlags: 0
@@ -3426,11 +3441,11 @@ RectTransform:
   - {fileID: 1270467767}
   - {fileID: 1156258949}
   m_Father: {fileID: 44594690}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -269.00006, y: 432}
+  m_AnchoredPosition: {x: -269.00006, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &777335586
@@ -3562,7 +3577,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ca7d3b6c07c67a84587ecf731008b3ba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -3600,11 +3615,11 @@ RectTransform:
   - {fileID: 284483807}
   - {fileID: 2049441667}
   m_Father: {fileID: 44594690}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 269.00006, y: 432}
+  m_AnchoredPosition: {x: 269.00006, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &781584265
@@ -3736,7 +3751,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ca7d3b6c07c67a84587ecf731008b3ba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -5222,11 +5237,11 @@ RectTransform:
   - {fileID: 720104905}
   - {fileID: 510118699}
   m_Father: {fileID: 1862596880}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -269.00003, y: -600}
+  m_AnchoredPosition: {x: -269, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!95 &1343282229
@@ -5241,7 +5256,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 688fdc55288bc824c9b0cbfd714896e7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -5382,7 +5397,7 @@ RectTransform:
   - {fileID: 149249046}
   - {fileID: 1571983349}
   m_Father: {fileID: 1862596880}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -5789,11 +5804,11 @@ RectTransform:
   - {fileID: 536511090}
   - {fileID: 537372245}
   m_Father: {fileID: 44594690}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 432}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1540634409
@@ -5936,7 +5951,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ca7d3b6c07c67a84587ecf731008b3ba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -6540,11 +6555,11 @@ RectTransform:
   - {fileID: 2090626670}
   - {fileID: 896618991}
   m_Father: {fileID: 1862596880}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -600}
+  m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!95 &1597611012
@@ -6559,7 +6574,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 688fdc55288bc824c9b0cbfd714896e7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -7120,10 +7135,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0577208, y: 1.057721, z: 1.057721}
   m_Children:
-  - {fileID: 1383118643}
   - {fileID: 1343282228}
   - {fileID: 1597611011}
   - {fileID: 372253098}
+  - {fileID: 1383118643}
   m_Father: {fileID: 2110026033}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

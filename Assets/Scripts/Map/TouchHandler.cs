@@ -21,13 +21,15 @@ public class TouchHandler : MonoBehaviour {
                     //Deselect Old Event
                     if (selectedEvent != null)
                     {
-                        selectedEvent.GetComponent<BattleSelected>().IsNotSelected();
+                        selectedEvent.GetComponent<BattleSelected>().StartCoroutine("NewIsNotSelected");
                         selectedEvent = null;
                     }
 
                     selectedEvent = hit.collider.gameObject;
 
-                    selectedEvent.GetComponent<BattleSelected>().IsSelected();
+
+                    //IN PROG you changed this! from  selectedEvent.GetComponent<BattleSelected>().IsSelected();
+                    selectedEvent.GetComponent<BattleSelected>().StartCoroutine("NewIsSelected");
                 }
 
             }

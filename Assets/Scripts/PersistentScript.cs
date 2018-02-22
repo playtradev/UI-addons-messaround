@@ -6,8 +6,8 @@ public class PersistentScript : MonoBehaviour {
 
     public string PlayerUsername;
     public bool Initialised;
-
     public GameObject DialogueHandlerRef;
+
 
     private void Awake()
     {

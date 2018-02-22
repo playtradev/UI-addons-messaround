@@ -67,9 +67,17 @@ public class DialogueHandlerScript : MonoBehaviour {
     }
 
     //Updates Dialogue +1
-    private void NextLine()
+    private IEnumerator NextLine()
     {
-        textBox.text = mineDialogue[currentLine++].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n");
+        string textBoxText = mineDialogue[currentLine++].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n");
+        string currentText = "";
+
+        for (int i = 0; i < textBoxText.Length; i++)
+        {
+            currentText = textBoxText.Substring(0, i);
+            textBox.text = currentText;
+            yield return new WaitForSeconds(0.05f);
+        }      
     }
 
     //Updates Face +1
@@ -82,7 +90,8 @@ public class DialogueHandlerScript : MonoBehaviour {
     public void CheckLine()
     {
             //Calls for Next Line and Face
-            NextLine();
+            StopAllCoroutines();
+            StartCoroutine (NextLine());
             NextFace();
 
             if (currentLine == 8)

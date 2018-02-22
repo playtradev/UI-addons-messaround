@@ -7,7 +7,7 @@
         public GameObject moveScriptRef;
         public GameObject scrollSnapRef;
 
-        //This is triggered by VerticalScrollSnap 'On Selection Page Changed Event'
+        //This is triggered automatically by VerticalScrollSnap 'On Selection Page Changed Event'
         public void EnableScroll()
         {
             if (scrollSnapRef.GetComponent<UnityEngine.UI.Extensions.VerticalScrollSnap>().CurrentPage == 1)
@@ -19,6 +19,12 @@
             {
                 moveScriptRef.GetComponent<Mapbox.Examples.QuadTreeCameraMovement>().enabled = false;
             }
+        }
+
+        //To be triggered by IsSelected() from battleSelected.cs
+        public void DisableScroll()
+        {
+            moveScriptRef.GetComponent<Mapbox.Examples.QuadTreeCameraMovement>().enabled = false;
         }
 
     }

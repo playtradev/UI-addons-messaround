@@ -686,7 +686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &440280634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2170,16 +2170,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114674103805000250, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _camera
-      value: 
-      objectReference: {fileID: 1330081203}
-    - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _referenceCamera
-      value: 
-      objectReference: {fileID: 1330081203}
     - target: {fileID: 114480097492665226, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: AbstractLocationProviderRef
@@ -2190,6 +2180,16 @@ Prefab:
       propertyPath: CanvasRef
       value: 
       objectReference: {fileID: 1566922025}
+    - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
+        type: 2}
+      propertyPath: _referenceCamera
+      value: 
+      objectReference: {fileID: 1330081203}
+    - target: {fileID: 114674103805000250, guid: 35380da57a9fa9142b5babdeb11e85bc,
+        type: 2}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 1330081203}
     - target: {fileID: 114251864561506396, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: scrollSnapRef
