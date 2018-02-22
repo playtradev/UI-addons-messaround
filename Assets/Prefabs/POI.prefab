@@ -83,12 +83,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   refToOwnSprite: {fileID: 1119534192079990}
-  popUpImageRef: {fileID: 1678025003869844, guid: 0c8bef7c30bc027489b9b5f5cc472359,
+  popUpImageRef: {fileID: 1294171678163728, guid: 1656196894d6b614b9a993d45abe90a7,
     type: 2}
   popUp: {fileID: 0}
   lerpDuration: 0.5
   lerpSmoothness: 0.01
   MapRef: {fileID: 1622536723198236, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
+  EventSystemRef: {fileID: 0}
 --- !u!135 &135181459658158654
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BattleSelected : MonoBehaviour {
 
     [Header("References")]
-    private GameObject refToSelfPOI;
+    public GameObject refToSelfPOI;
     [SerializeField]
     private GameObject refToOwnSprite;
     [SerializeField]
@@ -33,7 +33,7 @@ public class BattleSelected : MonoBehaviour {
     {
         if (popUp != null)
         {
-            popUp.transform.position = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(refToOwnSprite.transform.position);
+            //popUp.transform.position = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(refToOwnSprite.transform.position);
         }
     }
 
@@ -77,6 +77,12 @@ public class BattleSelected : MonoBehaviour {
         //Save location
         originalPosition = refToOwnSprite.transform.position;
 
+        //Instantiate PopUp
+        popUp = Instantiate(popUpImageRef, GameObject.Find("Canvas").transform) as GameObject;
+
+        //Set popUp parent Reference
+        popUp.GetComponent<PopUpImageScript>().parentEventRef = refToSelfPOI;
+
         //Lerp variables
         float progress = 0;
         float increment = lerpSmoothness / lerpDuration;
@@ -97,6 +103,12 @@ public class BattleSelected : MonoBehaviour {
 
     public IEnumerator NewIsNotSelected()
     {
+        //Delete Pop Up
+        if (popUp != null)
+        {
+            Destroy(popUp);
+        }
+
         //Enable Map Scroll + Raycast Touchhandler
         MapRef.GetComponent<EnableMapScroll>().EnableScroll();
         EventSystemRef.GetComponent<EnableTouchHandler>().EnableMapTouch();

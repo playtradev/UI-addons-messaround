@@ -23,7 +23,7 @@
 
     public void DisableMapTouch()
         {
-        eventSystemRef.GetComponent<TouchHandler>().enabled = false;
+            eventSystemRef.GetComponent<TouchHandler>().enabled = false;
         }
 
     }

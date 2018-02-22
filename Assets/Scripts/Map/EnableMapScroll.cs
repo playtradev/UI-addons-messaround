@@ -21,7 +21,7 @@
             }
         }
 
-        //To be triggered by IsSelected() from battleSelected.cs
+        //To be triggered by IsSelected() from BattleSelected.cs
         public void DisableScroll()
         {
             moveScriptRef.GetComponent<Mapbox.Examples.QuadTreeCameraMovement>().enabled = false;

@@ -19,10 +19,10 @@ public class TouchHandler : MonoBehaviour {
                 if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(0, -100, 0), out hit) && hit.transform.tag == "MapEvent")
                 {
                     //Deselect Old Event
-                    if (selectedEvent != null)
+                    //if (selectedEvent != null)
                     {
-                        selectedEvent.GetComponent<BattleSelected>().StartCoroutine("NewIsNotSelected");
-                        selectedEvent = null;
+                        //selectedEvent.GetComponent<BattleSelected>().StartCoroutine("NewIsNotSelected");
+                        //selectedEvent = null;
                     }
 
                     selectedEvent = hit.collider.gameObject;
