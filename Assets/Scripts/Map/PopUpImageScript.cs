@@ -11,7 +11,7 @@ public class PopUpImageScript : MonoBehaviour {
     {
         if (parentEventRef != null)
         {
-            parentEventRef.GetComponent<BattleSelected>().StartCoroutine("NewIsNotSelected");
+            parentEventRef.GetComponent<BattleSelected>().CallIsNotSelected();
         }
 
     }

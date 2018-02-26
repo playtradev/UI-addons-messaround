@@ -13,22 +13,37 @@ public class BattleSelected : MonoBehaviour {
     [SerializeField]
     private GameObject popUp;
 
-    [Header("IsSelected Animation Lerp")]
-    public float lerpDuration = 1f;
-    public float lerpSmoothness = 0.01f;
+
     private Vector3 originalPosition;
+
+    [Header("IsSelected Animation Lerp")]
+    public float lerpDuration = 0.4f;
+    public float lerpSmoothness = 0.01f;
+
+    [Header("References")]
     [SerializeField]
     private GameObject MapRef;
     [SerializeField]
     private GameObject EventSystemRef;
+    [SerializeField]
+    private GameObject AlphaMaskRef;
+    [SerializeField]
+    private GameObject FaceBackgroundRef;
+
+
+
 
     private void Start()
     {
         //TODO this is hacky, and bad practice
         MapRef = GameObject.Find("Map");
         EventSystemRef = GameObject.Find("EventSystem");
+        AlphaMaskRef = GameObject.Find("AlphaMask");
+        FaceBackgroundRef = GameObject.Find("FaceBackground");
     }
 
+    //Update() NO LONGER NEEDED AS MAP MOVEMENT CURRENTLY FROZEN WHEN POI IS SELECTED + other old functions
+    /*
     private void Update()
     {
         if (popUp != null)
@@ -36,8 +51,9 @@ public class BattleSelected : MonoBehaviour {
             //popUp.transform.position = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(refToOwnSprite.transform.position);
         }
     }
+    
 
-    public void IsSelected()
+    public void OldIsSelected()
     {
         refToOwnSprite.GetComponent<SpriteRenderer>().color = Color.red;
 
@@ -54,7 +70,7 @@ public class BattleSelected : MonoBehaviour {
         popUp.GetComponent<PopUpImageScript>().parentEventRef = refToSelfPOI;
     }
 
-    public void IsNotSelected()
+    public void OldIsNotSelected()
     {
  
         refToOwnSprite.GetComponent<SpriteRenderer>().color = Color.white;
@@ -64,21 +80,37 @@ public class BattleSelected : MonoBehaviour {
             Destroy(popUp);
         }
     }
+    */
 
-    public IEnumerator NewIsSelected()
+    public void CallIsSelected()
+    {
+        StopAllCoroutines();
+        StartCoroutine(IsSelected());
+    }
+
+    public void CallIsNotSelected()
+    {
+        StopAllCoroutines();
+        StartCoroutine(IsNotSelected());
+    }
+
+    private IEnumerator IsSelected()
     {
         //Disable Map Scroll + Raycast Touchhandler
         MapRef.GetComponent<EnableMapScroll>().DisableScroll();
         EventSystemRef.GetComponent<EnableTouchHandler>().DisableMapTouch();
 
+        //Lerp Face
+        FaceBackgroundRef.GetComponent<FaceLerp>().CallShowFace();
+
         //Set Red eyes
         refToOwnSprite.GetComponent<SpriteRenderer>().color = Color.red;
 
-        //Save location
-        originalPosition = refToOwnSprite.transform.position;
-
         //Instantiate PopUp
         popUp = Instantiate(popUpImageRef, GameObject.Find("Canvas").transform) as GameObject;
+
+        //Save position
+        originalPosition = refToOwnSprite.transform.position;
 
         //Set popUp parent Reference
         popUp.GetComponent<PopUpImageScript>().parentEventRef = refToSelfPOI;
@@ -86,13 +118,17 @@ public class BattleSelected : MonoBehaviour {
         //Lerp variables
         float progress = 0;
         float increment = lerpSmoothness / lerpDuration;
+        
 
         while (progress < 1)
         {
             //Position Lerp
-            refToOwnSprite.transform.position = Vector3.Lerp(originalPosition, new Vector3(0, 5, 0), progress);
+            refToOwnSprite.transform.position = Vector3.Lerp(refToSelfPOI.transform.position, new Vector3(0, 5, 0), progress);
             //Scale Lerp
             refToOwnSprite.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(4, 4, 4), progress);
+            //AlphaMask Lerp
+            AlphaMaskRef.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.clear, new Color(1, 1, 1, 0.7f), progress);
+
 
             progress += increment;
             yield return new WaitForSeconds(lerpSmoothness);
@@ -101,7 +137,7 @@ public class BattleSelected : MonoBehaviour {
 
     }
 
-    public IEnumerator NewIsNotSelected()
+    private IEnumerator IsNotSelected()
     {
         //Delete Pop Up
         if (popUp != null)
@@ -116,6 +152,9 @@ public class BattleSelected : MonoBehaviour {
         //Set White eyes
         refToOwnSprite.GetComponent<SpriteRenderer>().color = Color.white;
 
+        //Lerp Face
+        FaceBackgroundRef.GetComponent<FaceLerp>().CallShrinkFace();
+
         //Get Current Position
         Vector3 currentPosition = refToOwnSprite.transform.position;
 
@@ -126,14 +165,19 @@ public class BattleSelected : MonoBehaviour {
         while (progress < 1)
         {
             //Position Lerp
-            refToOwnSprite.transform.position = Vector3.Lerp(currentPosition, originalPosition, progress);
+            refToOwnSprite.transform.position = Vector3.Lerp(currentPosition, refToSelfPOI.transform.position, progress);
             //Scale Lerp
-            refToOwnSprite.transform.localScale = Vector3.Lerp(new Vector3(4, 4, 4), new Vector3(1, 1, 1), progress);
+            refToOwnSprite.transform.localScale = Vector3.Lerp(refToOwnSprite.transform.localScale, new Vector3(1, 1, 1), progress);
+            //AlphaMask Lerp
+            AlphaMaskRef.GetComponent<SpriteRenderer>().color = Color.Lerp(AlphaMaskRef.GetComponent<SpriteRenderer>().color, Color.clear, progress);
 
             progress += increment;
             yield return new WaitForSeconds(lerpSmoothness);
         }
 
+
+        //Offset slightly so Sprite doesn't clip through map
+        refToOwnSprite.transform.position = new Vector3(refToOwnSprite.transform.position.x, 1, refToOwnSprite.transform.position.z);
     }
 }
 

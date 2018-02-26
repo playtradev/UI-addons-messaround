@@ -82,14 +82,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a03b39236981cd478aedd44b435f214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  refToSelfPOI: {fileID: 1780166644722094}
   refToOwnSprite: {fileID: 1119534192079990}
   popUpImageRef: {fileID: 1294171678163728, guid: 1656196894d6b614b9a993d45abe90a7,
     type: 2}
-  popUp: {fileID: 0}
-  lerpDuration: 0.5
+  popUp: {fileID: 1294171678163728, guid: 1656196894d6b614b9a993d45abe90a7, type: 2}
+  lerpDuration: 0.3
   lerpSmoothness: 0.01
   MapRef: {fileID: 1622536723198236, guid: 35380da57a9fa9142b5babdeb11e85bc, type: 2}
   EventSystemRef: {fileID: 0}
+  AlphaMaskRef: {fileID: 0}
+  FaceBackgroundRef: {fileID: 0}
 --- !u!135 &135181459658158654
 SphereCollider:
   m_ObjectHideFlags: 1

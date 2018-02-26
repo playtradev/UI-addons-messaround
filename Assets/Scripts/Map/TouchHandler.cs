@@ -27,9 +27,7 @@ public class TouchHandler : MonoBehaviour {
 
                     selectedEvent = hit.collider.gameObject;
 
-
-                    //IN PROG you changed this! from  selectedEvent.GetComponent<BattleSelected>().IsSelected();
-                    selectedEvent.GetComponent<BattleSelected>().StartCoroutine("NewIsSelected");
+                    selectedEvent.GetComponent<BattleSelected>().CallIsSelected();
                 }
 
             }
