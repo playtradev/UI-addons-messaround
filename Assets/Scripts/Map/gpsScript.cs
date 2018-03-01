@@ -18,21 +18,22 @@
         float duration = 1;
         float smoothness = 0.01f;
 
-        Mapbox.Utils.Vector2d newLocation = Conversions.StringToLatLon("37.120196, -80.223586");
+        //Mapbox.Utils.Vector2d newLocation = Conversions.StringToLatLon("37.120196, -80.223586");
 
         public void StartRecentre()
         {
             StartCoroutine(RecentreMap());
         }
 
-        public IEnumerator RecentreMap()
+        private IEnumerator RecentreMap()
         {
+
             //Mapbox.Utils.Vector2d currentRealLocation = PlayerRef.transform.position.GetGeoPosition (map.CenterMercator, map.WorldRelativeScale);
-          
+
             //TODO make conditional for editor / phone UNTIL THEN, just pick n choose
 
-            Mapbox.Utils.Vector2d currentRealLocation = editorLocationProvider.CurrentLocation.LatitudeLongitude;
-            //Mapbox.Utils.Vector2d currentRealLocation = deviceLocationProvider.CurrentLocation.LatitudeLongitude;
+            //Mapbox.Utils.Vector2d currentRealLocation = editorLocationProvider.CurrentLocation.LatitudeLongitude;
+            Mapbox.Utils.Vector2d currentRealLocation = deviceLocationProvider.CurrentLocation.LatitudeLongitude;
 
             Mapbox.Utils.Vector2d cameraLocation = mapObjectReference.GetComponent<QuadTreeBasicMap>().CenterLatitudeLongitude;
 
@@ -60,7 +61,7 @@
                 progress += increment;
                 yield return new WaitForSeconds(smoothness);
             }
-            
+
             yield return null;
             
         }

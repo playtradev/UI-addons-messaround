@@ -11,4 +11,4 @@ Well then PLAYER_USERNAME,_NEW_LINE_let’s begin._NEW_LINE_Scroll down when you
 
 Welcomst backe,_NEW_LINE_Oh PLAYER_USERNAME,_NEW_LINE_my bravest Warrior._NEW_LINE_Scroll ye down whenst thou art ready
 
-Hmm, I didn't get that._NEW_LINE_How about I call you _RANDOM_USERNAME_?
+Hmm, I didn't get that._NEW_LINE_How about I call you _RANDOM_USERNAME_? 

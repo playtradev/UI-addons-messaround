@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4825815039090614}
   - component: {fileID: 135181459658158654}
   - component: {fileID: 114113275755968188}
+  - component: {fileID: 114892690378018274}
   m_Layer: 0
   m_Name: POI
   m_TagString: MapEvent
@@ -93,6 +94,23 @@ MonoBehaviour:
   EventSystemRef: {fileID: 0}
   AlphaMaskRef: {fileID: 0}
   FaceBackgroundRef: {fileID: 0}
+--- !u!114 &114892690378018274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780166644722094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6f0da2fdc25994a8f0b0bb068521a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  might_ATK: 0
+  might_DEF: 0
+  mind_ATK: 0
+  mind_DEF: 0
+  magic_ATK: 0
+  magic_DEF: 0
 --- !u!135 &135181459658158654
 SphereCollider:
   m_ObjectHideFlags: 1

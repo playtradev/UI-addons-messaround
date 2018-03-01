@@ -35,7 +35,6 @@ public class DialogueHandlerScript : MonoBehaviour {
     public Sprite[] spriteList;
     private int currentFace;
 
-    //private string[] locationStringsX = new string[3];
 
     // Use this for initialization
     void Start()
@@ -69,15 +68,15 @@ public class DialogueHandlerScript : MonoBehaviour {
     //Updates Dialogue +1
     private IEnumerator NextLine()
     {
-        string textBoxText = mineDialogue[currentLine++].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n");
+        string textBoxText = mineDialogue[currentLine++].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
         string currentText = "";
 
         for (int i = 0; i < textBoxText.Length; i++)
         {
             currentText = textBoxText.Substring(0, i);
             textBox.text = currentText;
-            yield return new WaitForSeconds(0.05f);
-        }      
+            yield return new WaitForSeconds(0.02f);
+        }
     }
 
     //Updates Face +1
@@ -102,9 +101,10 @@ public class DialogueHandlerScript : MonoBehaviour {
             }
             if ((currentLine == 9) && (userName == ""))
             {
+                StopAllCoroutines();
                 GenerateRandomUsername();
                 submitNameButton.SetActive(false);
-               }
+            }
             if ((currentLine == 9) && (userName != ""))
             {
                 inputName.SetActive(false);
@@ -122,6 +122,7 @@ public class DialogueHandlerScript : MonoBehaviour {
                 nextButton.gameObject.SetActive(false);
                 ScrollSnapRef.GetComponent<ScrollRect>().vertical = true;
             }
+
 
             // Jumps to here when already initialised
             if (currentLine == 12)
@@ -158,15 +159,21 @@ public class DialogueHandlerScript : MonoBehaviour {
         string lastrandomName = randomUserName;
 
         RandomUsername();
+
         if (lastrandomName == randomUserName)
         {
             //Reroll because name is the same
             GenerateRandomUsername();
         }
+
         else
         {
-            textBox.text = mineDialogue[13].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
-            currentFaceImage.sprite = spriteList[1];
+            //textBox.text = mineDialogue[13].Replace("PLAYER_USERNAME", userName).Replace("_NEW_LINE_", "\n").Replace("_RANDOM_USERNAME_", randomUserName);
+            //currentFaceImage.sprite = spriteList[1];
+
+            currentLine = 13;
+            currentFace = 3;
+            CheckLine();
 
             //Hide and show correct buttons
             inputName.SetActive(false);

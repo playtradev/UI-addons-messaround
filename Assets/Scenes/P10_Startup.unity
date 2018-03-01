@@ -909,11 +909,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114962518606103416, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _latitudeLongitude.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4608272919366364, guid: 589a8a67d9ddcf44dabc961e9d37f104, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -948,49 +943,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114425672248113464, guid: 589a8a67d9ddcf44dabc961e9d37f104,
         type: 2}
-      propertyPath: _latitudeLongitude
-      value: 51.4554, -0.1001
-      objectReference: {fileID: 0}
-    - target: {fileID: 114425672248113464, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _targetTransform
-      value: 
-      objectReference: {fileID: 1520672908}
-    - target: {fileID: 114519823977209958, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _map
-      value: 
-      objectReference: {fileID: 1167912649}
-    - target: {fileID: 114425672248113464, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
       propertyPath: _map
       value: 
       objectReference: {fileID: 1167912649}
     - target: {fileID: 114519823977209958, guid: 589a8a67d9ddcf44dabc961e9d37f104,
         type: 2}
-      propertyPath: _targetTransform
+      propertyPath: _map
       value: 
-      objectReference: {fileID: 1554764434}
-    - target: {fileID: 114650581836147290, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _dontDestroyOnLoad
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114962518606103416, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _latitudeLongitude.Array.data[0]
-      value: 55.963398, 10.046297
-      objectReference: {fileID: 0}
-    - target: {fileID: 114962518606103416, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _latitudeLongitude.Array.data[1]
-      value: 55.963398, 10.046297
-      objectReference: {fileID: 0}
-    - target: {fileID: 114962518606103416, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-        type: 2}
-      propertyPath: _latitudeLongitude.Array.data[2]
-      value: 55.963398, 10.046297
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1167912649}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 589a8a67d9ddcf44dabc961e9d37f104, type: 2}
   m_IsPrefabParent: 0
@@ -1930,6 +1890,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FaceBackgroundRef: {fileID: 1288854611}
   faceRT: {fileID: 0}
+  faceImageRef: {fileID: 943094262}
+  faceSpriteList:
+  - {fileID: 21300000, guid: 1c5a80ce49b571d478ae8875acdd6fef, type: 3}
+  - {fileID: 21300000, guid: 35568b86f8f119d44a6e27cdf619ddf8, type: 3}
   lerpSmoothness: 0.01
   lerpDuration: 1
 --- !u!1 &1305067389
@@ -2197,11 +2161,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114674103805000250, guid: 35380da57a9fa9142b5babdeb11e85bc,
+        type: 2}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 1330081203}
     - target: {fileID: 114480097492665226, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: AbstractLocationProviderRef
       value: 
-      objectReference: {fileID: 265613214}
+      objectReference: {fileID: 646832583}
     - target: {fileID: 114480097492665226, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: CanvasRef
@@ -2210,11 +2179,6 @@ Prefab:
     - target: {fileID: 114003425715770030, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: _referenceCamera
-      value: 
-      objectReference: {fileID: 1330081203}
-    - target: {fileID: 114674103805000250, guid: 35380da57a9fa9142b5babdeb11e85bc,
-        type: 2}
-      propertyPath: _camera
       value: 
       objectReference: {fileID: 1330081203}
     - target: {fileID: 114251864561506396, guid: 35380da57a9fa9142b5babdeb11e85bc,
@@ -2412,16 +2376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!4 &1520672908 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4403995852200560, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-    type: 2}
-  m_PrefabInternal: {fileID: 566429243}
---- !u!4 &1554764434 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4142581263986248, guid: 589a8a67d9ddcf44dabc961e9d37f104,
-    type: 2}
-  m_PrefabInternal: {fileID: 566429243}
 --- !u!1 &1566922025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2}
+  m_AnchoredPosition: {x: 0, y: -253}
   m_SizeDelta: {x: 700, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1595768510
@@ -2584,7 +2538,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 71
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3024,6 +2978,7 @@ MonoBehaviour:
   PlayerUsername: 
   Initialised: 0
   DialogueHandlerRef: {fileID: 812047973}
+  enemyStats: 
 --- !u!4 &2062638210
 Transform:
   m_ObjectHideFlags: 0

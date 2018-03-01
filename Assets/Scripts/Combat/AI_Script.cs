@@ -17,7 +17,7 @@ public class AI_Script : MonoBehaviour
 
     private int tempDefenceCount;
     private int tempAttackCount;
-    private int SeedsSet;
+    public int SeedsSet;
 
     [Header("Sub-Buttons")]
     [SerializeField]
@@ -32,6 +32,7 @@ public class AI_Script : MonoBehaviour
     [Header("Seed Sprites")]
     [SerializeField]
     private Sprite[] SeedSprites;
+
 
 
     private void Start()
@@ -75,15 +76,21 @@ public class AI_Script : MonoBehaviour
         if (b.transform.Find("AttackType").GetComponentInChildren<Text>().text != s)
         {
             StartCoroutine(ClickUntil(b, s));
-            yield break;
+            yield return 0;
         }
 
         else if (b.transform.Find("AttackType").GetComponentInChildren<Text>().text == s)
         {
             Debug.Log("<color=blue>Clicked </color>" + b + " until it was " + s);
-            yield break;
+            yield return 0;
         }
 
+    }
+
+    private void RestartReactionLoop()
+    {
+        StopAllCoroutines();
+        StartCoroutine(AIReactionDefenceLoop());
     }
 
 
@@ -152,6 +159,8 @@ public class AI_Script : MonoBehaviour
 
     private IEnumerator AIReactionPhase()
     {
+        Debug.Log("<color=blue>Reaction Phase Begin</color>");        
+
         //If enemy attack is low, go full attack
         if ((BattleManagerRef.damageCount1 < p2Defence[0]) && (BattleManagerRef.damageCount1 < p2Defence[1]) && (BattleManagerRef.damageCount1 < p2Defence[2]))
         {
@@ -178,8 +187,8 @@ public class AI_Script : MonoBehaviour
                 Debug.Log("<color=blue>Deploying Might Support </color>");
                 if (BattleManagerRef.seedList2[1].GetComponent<SeedScript>().attackVal >= BattleManagerRef.seedList2[2].GetComponent<SeedScript>().attackVal)
                 {
-                StartCoroutine(ClickUntil(BattleManagerRef.seedList2[1], "Support"));
-                yield return new WaitUntil(() => BattleManagerRef.seedList2[1].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
+                StartCoroutine(ClickUntil(BattleManagerRef.seedList2[0], "Support"));
+                yield return new WaitUntil(() => BattleManagerRef.seedList2[0].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
                 yield return new WaitForSeconds(1f);
                 Might_Supp_1.onClick.Invoke();               
                 }
@@ -216,6 +225,9 @@ public class AI_Script : MonoBehaviour
 
     private IEnumerator AIReactionDefenceLoop()
     {
+
+        Debug.Log("<color=blue>Reaction Defence Loop preferred</color>");
+
         int maxDefVal = p2Defence[0];
         int maxDefValIndex = 0;
 
@@ -232,62 +244,80 @@ public class AI_Script : MonoBehaviour
         //Set the Seed with highest defence to Defend
         if (BattleManagerRef.seedList2[maxDefValIndex].transform.Find("AttackType").GetComponentInChildren<Text>().text != "Defend")
         {
+            Debug.Log("<color=blue>Max Def set on Seed : </color>" + BattleManagerRef.seedList2[maxDefValIndex]);
             StartCoroutine(ClickUntil(BattleManagerRef.seedList2[maxDefValIndex], "Defend"));
             yield return new WaitUntil(() => BattleManagerRef.seedList2[maxDefValIndex].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Defend");
         }
 
-        Debug.Log("<color=blue>MAX DEFENCE SET ON SEED </color>" + BattleManagerRef.seedList2[maxDefValIndex]);
         tempDefenceCount += p2Defence[maxDefValIndex];
         p2Defence[maxDefValIndex] = 0;
         p2Attack[maxDefValIndex] = 0;
+
+        yield return new WaitForSeconds(1f);
+        SetSeedLocked(maxDefValIndex);
         yield return new WaitForSeconds(1f);
 
-        SetSeedLocked(maxDefValIndex);
         SeedsSet++;
 
-        //If defence still not high enough, Restart to add more defence
-        if (BattleManagerRef.damageCount1 > tempDefenceCount && (SeedsSet < 3))
-        {
-            Debug.Log("<color=red>damage > def, looping </color>");
-            StartCoroutine("AIReactionDefenceLoop");
-            yield break;
-        }
 
-        //Else if all damage is blocked, set remaining Seeds to max attack
-        else if (BattleManagerRef.damageCount1 <= tempDefenceCount && (SeedsSet < 3))
+        if (SeedsSet < 3)
         {
-            for (int t = 0; t < BattleManagerRef.seedList2.Length; t++)
+            //If defence still not high enough, Restart to add more defence
+            if (BattleManagerRef.damageCount1 > tempDefenceCount)
             {
-                if (p2Defence[t] > 0)
-                {
-                    StartCoroutine(ClickUntil(BattleManagerRef.seedList2[t], "Attack"));
-                    yield return new WaitUntil(() => BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Attack");
-
-                    yield return new WaitForSeconds(1f);
-                    SetSeedLocked(t);
-                }
-
-                if ((BattleManagerRef.damageCount1 / 5) > BattleManagerRef.seedList2[2].GetComponent<SeedScript>().attackVal)
-                {
-                    StartCoroutine(ClickUntil(BattleManagerRef.seedList2[2], "Support"));
-                    yield return new WaitUntil(() => BattleManagerRef.seedList2[2].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
-
-                    yield return new WaitForSeconds(1f);
-                    SetSeedLocked(t);
-                }
+                Debug.Log("<color=red>damage > def, looping </color>");
+                RestartReactionLoop();
             }
 
+            //Else if all damage is blocked, set remaining Seeds to max attack
+            else if (BattleManagerRef.damageCount1 <= tempDefenceCount)
+            {
+
+                Debug.Log("<color=red>damage < def, setting rest to attack or support </color>");
+                for (int t = 0; t < BattleManagerRef.seedList2.Length; t++)
+                {
+                    if (p2Defence[t] > 0)
+                    {
+                        if (BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Attack")
+                        {
+                            Debug.Log("<color=blue>Seed </color>" + t + " already set to attack");
+                            yield return new WaitForSeconds(1f);
+                            SetSeedLocked(t);
+                        }
+                        else
+                        {
+                            StartCoroutine(ClickUntil(BattleManagerRef.seedList2[t], "Attack"));
+                            yield return new WaitUntil(() => BattleManagerRef.seedList2[t].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Attack");
+                            yield return new WaitForSeconds(1f);
+                            SetSeedLocked(t);
+                        }
+                    }
+                    //TODO this needs to be an else if   
+                    /*
+                    if ((BattleManagerRef.damageCount1 / 5) > BattleManagerRef.seedList2[2].GetComponent<SeedScript>().attackVal)
+                    {
+                        StartCoroutine(ClickUntil(BattleManagerRef.seedList2[2], "Support"));
+                        yield return new WaitUntil(() => BattleManagerRef.seedList2[2].transform.Find("AttackType").GetComponentInChildren<Text>().text == "Support");
+
+                        yield return new WaitForSeconds(1f);
+                
+                    }                 
+                    */
+                }
+            }
         }
-        
-        //Reset Calculators
-        SeedsSet = 0;
-        GetAIPlayerSeedStats();
 
         yield return new WaitForSeconds(2f);
 
         //Press End Turn Button    
         p2EndTurnButtonRef.onClick.Invoke();
         Debug.Log("<color=yellow>END TURN CLICK </color>");
+
+        //Reset Calculators
+        SeedsSet = 0;
+        GetAIPlayerSeedStats();
+
+        yield return 0;
 
     }
 }

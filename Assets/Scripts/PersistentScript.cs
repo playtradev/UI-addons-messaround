@@ -8,6 +8,10 @@ public class PersistentScript : MonoBehaviour {
     public bool Initialised;
     public GameObject DialogueHandlerRef;
 
+    [Header("AI stats")]
+    public int[] enemyStats = new int[6];
+
+
 
     private void Awake()
     {

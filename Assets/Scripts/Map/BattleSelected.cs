@@ -17,7 +17,7 @@ public class BattleSelected : MonoBehaviour {
     private Vector3 originalPosition;
 
     [Header("IsSelected Animation Lerp")]
-    public float lerpDuration = 0.4f;
+    public float lerpDuration = 0.3f;
     public float lerpSmoothness = 0.01f;
 
     [Header("References")]

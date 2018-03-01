@@ -19,6 +19,7 @@ public class SeedScript : MonoBehaviour
     private string[] seedPosition;
 
     [Header("Stats")]
+    public GameObject persistentInfoRef;
     public int attackVal;
     public int defenceVal;
     [SerializeField]
@@ -31,6 +32,8 @@ public class SeedScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        GetSeedStats();
+
         //Set default Values
         defaultAttackVal = attackVal;
         defaultDefenceVal = defenceVal;
@@ -41,6 +44,31 @@ public class SeedScript : MonoBehaviour
 
         SetStatsText();
         AttackType();
+    }
+
+    public void GetSeedStats()
+    {
+        persistentInfoRef = GameObject.Find("PersistentInfo");
+
+        //Get Seed stats
+        if (persistentInfoRef != null)
+        {
+            if (gameObject.name == "Might_2")
+            {
+                attackVal = persistentInfoRef.GetComponent<PersistentScript>().enemyStats[0];
+                defenceVal = persistentInfoRef.GetComponent<PersistentScript>().enemyStats[1];
+            }
+            else if (gameObject.name == "Mind_2")
+            {
+                attackVal = persistentInfoRef.GetComponent<PersistentScript>().enemyStats[2];
+                defenceVal = persistentInfoRef.GetComponent<PersistentScript>().enemyStats[3];
+            }
+            else if (gameObject.name == "Magic_2")
+            {
+                attackVal = persistentInfoRef.GetComponent<PersistentScript>().enemyStats[4];
+                defenceVal = persistentInfoRef.GetComponent<PersistentScript>().enemyStats[5];
+            }
+        }
     }
 
     public void ResetSeedStats()
@@ -56,7 +84,6 @@ public class SeedScript : MonoBehaviour
 
     public void AttackType()
     {
-
         t = (t + 1) % 3;
 
         thisSeed.transform.Find("AttackType").GetComponentInChildren<Text>().text = seedPosition[t];
