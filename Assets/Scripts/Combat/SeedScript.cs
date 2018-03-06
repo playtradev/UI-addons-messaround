@@ -98,7 +98,7 @@ public class SeedScript : MonoBehaviour
                 support2.gameObject.SetActive(true);
                 supportText.gameObject.SetActive(true);
 
-                supportText.text = support1.GetComponentInChildren<Text>().text;
+
             }
             else
             {

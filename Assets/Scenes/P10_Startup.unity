@@ -2170,7 +2170,7 @@ Prefab:
         type: 2}
       propertyPath: AbstractLocationProviderRef
       value: 
-      objectReference: {fileID: 646832583}
+      objectReference: {fileID: 265613214}
     - target: {fileID: 114480097492665226, guid: 35380da57a9fa9142b5babdeb11e85bc,
         type: 2}
       propertyPath: CanvasRef
